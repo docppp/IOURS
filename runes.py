@@ -27,7 +27,6 @@ def getRunesSecondBonus(rarity, level, name):
 rune_list = ['adrenaline', 'anger', 'favor', 'frenzy', 'poison', 'regen']
 
 comb = product(rune_list, rune_list)
-print(type(comb))
 
 
 def createRunes(runes, rarity, level, first_rune, second_rune):
@@ -37,15 +36,15 @@ def createRunes(runes, rarity, level, first_rune, second_rune):
     runes.frenzy = 0
     runes.poison = 0
     runes.regen = 0
-    runes.__setattr__(first_rune, getRunesFirstBonus(rarity, level, first_rune))
-    runes.__setattr__(second_rune, getRunesSecondBonus(rarity, level, second_rune))
+    runes.__setattr__(first_rune, runes.__dict__.get(first_rune) + getRunesFirstBonus(rarity, level, first_rune))
+    runes.__setattr__(second_rune, runes.__dict__.get(second_rune) + getRunesSecondBonus(rarity, level, second_rune))
     return runes
 
 
 def runesGenerator(rarity, level):
     runes = Runes()
     for i in list(comb):
-        print(i[0], i[1])
+        # print(i[0], i[1])
         runes = createRunes(runes, rarity, level, i[0], i[1])
         yield runes
 
