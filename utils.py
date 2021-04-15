@@ -1,4 +1,5 @@
 from math import floor
+from copy import copy
 
 
 def auto_str(cls):
@@ -39,7 +40,9 @@ def generateOpponent(level, bonus_armor, runes_frenzy):
 
 
 def preparePet(pet, opponent, bonus, runes):
-    pet.dmg = int(pet.dmg/opponent.defense*(1+runes.frenzy)/(1+runes.adrenaline*0.1))
-    pet.regen = int(pet.hp*(bonus.regen+runes.regen))
-    pet.heal = int(pet.hp*bonus.heals)
+    ret_pet = copy(pet)
+    ret_pet.dmg = int(pet.dmg/opponent.defense*(1+runes.frenzy)/(1+runes.adrenaline*0.1))
+    ret_pet.regen = int(pet.hp*(bonus.regen+runes.regen))
+    ret_pet.heal = int(pet.hp*bonus.heals)
+    return ret_pet
 
