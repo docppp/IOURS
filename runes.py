@@ -41,13 +41,22 @@ def createRunes(runes, rarity, level, first_rune, second_rune):
     return runes
 
 
+# TODO:
+# Generator seems to be more memory efficient
+# but how to stack two generators on top of ech other?
 def runesGenerator(rarity, level):
     runes = Runes()
     for i in list(comb):
-        # print(i[0], i[1])
         runes = createRunes(runes, rarity, level, i[0], i[1])
         yield runes
 
 
-for i in runesGenerator(14, 7):
-    print(i)
+def runesCombList(rarity1, level1, rarity2, level2):
+    runes_list1 = []
+    runes_list2 = []
+    for i in list(comb):
+        runes1 = Runes()
+        runes2 = Runes()
+        runes_list1.append(createRunes(runes1, rarity1, level1, i[0], i[1]))
+        runes_list2.append(createRunes(runes2, rarity2, level2, i[0], i[1]))
+    return runes_list1, runes_list2
