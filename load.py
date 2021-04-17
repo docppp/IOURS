@@ -18,6 +18,16 @@ class Runes:
     def __init__(self, **kwargs):
         pass
 
+    def __add__(self, other):
+        r = Runes()
+        r.adrenaline = self.adrenaline + other.adrenaline
+        r.anger = self.anger + other.anger
+        r.favor = self.favor + other.favor
+        r.frenzy = self.frenzy + other.frenzy
+        r.poison = self.poison + other.poison
+        r.regen = self.regen + other.regen
+        return r
+
 
 def loadThings() -> (Pet, Pet, Bonus, Runes):
     with open("iou.txt") as file:
