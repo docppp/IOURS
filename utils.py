@@ -21,7 +21,7 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box):
                     tmp += text[i]
             except IndexError:
                 return False
-            combat_box.insert('0.0', tmp)
+            combat_box.insert('0.0', tmp[:-1])
 
             tmp = ''
             try:
@@ -29,7 +29,7 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box):
                     tmp += text[i]
             except IndexError:
                 return False
-            runes_box.insert('0.0', tmp)
+            runes_box.insert('0.0', tmp[:-1])
 
             tmp = ''
             try:
@@ -49,8 +49,8 @@ def saveFromTextBoxToFile(combat_box, runes_box, converge_box):
     try:
         with open("iou.txt", 'w') as file:
             tmp = ''
-            tmp += combat_box.get('0.0', 'end')[:-1]
-            tmp += runes_box.get('0.0', 'end')[:-1]
+            tmp += combat_box.get('0.0', 'end')
+            tmp += runes_box.get('0.0', 'end')
             tmp += converge_box.get()
             file.write(tmp)
         return True
