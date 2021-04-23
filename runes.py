@@ -26,10 +26,11 @@ def getRunesSecondBonus(rarity, level, name):
 
 rune_list = ['adrenaline', 'anger', 'favor', 'frenzy', 'poison', 'regen']
 
-comb = product(rune_list, rune_list)
 
 
-def createRunes(runes, rarity, level, first_rune, second_rune):
+
+def createRunes(rarity, level, first_rune, second_rune):
+    runes = Runes()
     runes.adrenaline = 0
     runes.anger = 0
     runes.favor = 0
@@ -38,6 +39,8 @@ def createRunes(runes, rarity, level, first_rune, second_rune):
     runes.regen = 0
     runes.__setattr__(first_rune, runes.__dict__.get(first_rune) + getRunesFirstBonus(rarity, level, first_rune))
     runes.__setattr__(second_rune, runes.__dict__.get(second_rune) + getRunesSecondBonus(rarity, level, second_rune))
+    runes.first = first_rune
+    runes.second = second_rune
     return runes
 
 
@@ -45,18 +48,17 @@ def createRunes(runes, rarity, level, first_rune, second_rune):
 # Generator seems to be more memory efficient
 # but how to stack two generators on top of ech other?
 def runesGenerator(rarity, level):
-    runes = Runes()
+    comb = product(rune_list, rune_list)
     for i in list(comb):
-        runes = createRunes(runes, rarity, level, i[0], i[1])
+        runes = createRunes(rarity, level, i[0], i[1])
         yield runes
 
 
 def runesCombList(rarity1, level1, rarity2, level2):
     runes_list1 = []
     runes_list2 = []
+    comb = product(rune_list, rune_list)
     for i in list(comb):
-        runes1 = Runes()
-        runes2 = Runes()
-        runes_list1.append(createRunes(runes1, rarity1, level1, i[0], i[1]))
-        runes_list2.append(createRunes(runes2, rarity2, level2, i[0], i[1]))
+        runes_list1.append(createRunes(rarity1, level1, i[0], i[1]))
+        runes_list2.append(createRunes(rarity2, level2, i[0], i[1]))
     return runes_list1, runes_list2
