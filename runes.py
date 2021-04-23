@@ -27,8 +27,6 @@ def getRunesSecondBonus(rarity, level, name):
 rune_list = ['adrenaline', 'anger', 'favor', 'frenzy', 'poison', 'regen']
 
 
-
-
 def createRunes(rarity, level, first_rune, second_rune):
     runes = Runes()
     runes.adrenaline = 0

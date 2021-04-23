@@ -153,7 +153,8 @@ Regen	26.00%""")
         self.label13.configure(justify='left', text='After pasting all data, choose opponent level to fight with.'
                                                     ' Program calculates combination of runes which requires least'
                                                     ' heals to win. Choose continuous mode to see which runes are'
-                                                    ' better in the long run (limited to 50 lvl).', wraplength='220')
+                                                    ' better in the long run (limited to 50 lvl). Your pet input data'
+                                                    ' is stored in iou.txt file.', wraplength='220')
         self.label13.pack(padx='10', side='top')
         self.labelframe4.configure(height='200', text='How to use it?', width='200')
         self.labelframe4.grid(column='1', row='0', sticky='nw')
@@ -182,6 +183,10 @@ Regen	26.00%""")
         if self.var_opponent_button.get() == '1':
             self.buttonOneLevelClicked()
 
+    # TODO
+    # Better error handling with some useful
+    # info instead of 'error happened'
+    # Maybe some fixing-on-fly?
     def buttonOneLevelClicked(self):
         if not saveFromTextBoxToFile(self.text1, self.text2, self.entry1):
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
