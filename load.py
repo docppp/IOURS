@@ -16,7 +16,8 @@ class Bonus:
 @auto_str
 class Runes:
     def __init__(self, **kwargs):
-        pass
+        self.first = 'none'
+        self.second = 'none'
 
     def __add__(self, other):
         r = Runes()
@@ -27,6 +28,9 @@ class Runes:
         r.poison = self.poison + other.poison
         r.regen = self.regen + other.regen
         return r
+
+    def __repr__(self):
+        return f'{self.first}, {self.second}'
 
 
 def loadThings() -> (Pet, Pet, Bonus, Runes):

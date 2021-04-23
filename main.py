@@ -16,10 +16,9 @@ def calculateHeals(pet1, pet2, bonus, runes, level):
 
 def getBestRunes(rune1_rarity, rune1_level, rune2_rarity, rune2_level, opponent_level):
     min_heals = 99999999
-    rcopy1 = ''
-    rcopy2 = ''
+    rcopy1 = 'er'
+    rcopy2 = 'er'
     list_rune1, list_rune2 = runesCombList(rune1_rarity, rune1_level, rune2_rarity, rune2_level)
-
     for rune1 in list_rune1:
         for rune2 in list_rune2:
             rune = rune1 + rune2
@@ -29,9 +28,16 @@ def getBestRunes(rune1_rarity, rune1_level, rune2_rarity, rune2_level, opponent_
                 rcopy1 = copy(rune1)
                 rcopy2 = copy(rune2)
     print(min_heals)
-    print(rcopy1)
-    print(rcopy2)
+    print(rcopy1.__repr__())
+    print(rcopy2.__repr__())
     return rcopy1, rcopy2, min_heals
+
+getBestRunes(14, 7, 10, 0, 290)
+getBestRunes(14, 7, 10, 0, 300)
+getBestRunes(14, 7, 10, 0, 310)
+getBestRunes(14, 7, 10, 0, 320)
+getBestRunes(14, 7, 10, 0, 330)
+getBestRunes(14, 7, 10, 0, 340)
 
 
 # TODO
