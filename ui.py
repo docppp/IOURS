@@ -187,11 +187,11 @@ Regen	26.00%""")
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
             return False
 
-        try:
-            pet1, pet2, bonus, runes = loadThings()
-        except Exception:
-            tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
-            return False
+        #try:
+        pet1, pet2, bonus, runes = loadThings()
+        #except Exception:
+            #tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
+        #    return False
 
         rune1_rarity = int(self.spinbox_r1r.get())
         rune1_level = int(self.spinbox_r1l.get())
@@ -200,8 +200,10 @@ Regen	26.00%""")
         opponent_level = int(self.spinbox_op.get())
 
         try:
-            ans = getBestRunes(pet1, pet2, bonus, rune1_rarity, rune1_level, rune2_rarity, rune2_level, opponent_level)
-            tkinter.messagebox.showinfo("Best Rune", ans)
+            rune1, rune2, heals = getBestRunes(pet1, pet2, bonus, rune1_rarity, rune1_level, rune2_rarity, rune2_level, opponent_level)
+            tkinter.messagebox.showinfo(f"Best Rune for level {opponent_level}", f"First Rune: {rune1.__repr__()}\n"
+                                                                                 f"Second Rune: {rune2.__repr__()}\n"
+                                                                                 f"Used heals: {heals}")
         except Exception:
             tkinter.messagebox.showinfo("Error", "There were some error during calculations")
             return False
