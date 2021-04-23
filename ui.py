@@ -1,5 +1,11 @@
 from tkinter import *
 import tkinter.ttk as ttk
+import tkinter as tk
+import tkinter.messagebox
+
+from load import loadThings
+from ioumath import getBestRunes
+from utils import saveFromTextBoxToFile
 
 
 class IoursUi:
@@ -51,7 +57,7 @@ Premeditated	0.00%
 Regen	26.00%""")
         self.label5.grid(column='0', row='3', sticky='ne')
         self.label6 = ttk.Label(self.Petframe)
-        self.label6.configure(text='Coverage e.g.: 84.00%')
+        self.label6.configure(text='Coverage e.g.: "Coverage 84.00%"')
         self.label6.grid(column='0', row='4', sticky='e')
         self.Petframe.configure(height='200', text='Pet Data Input', width='200')
         self.Petframe.grid(column='0', row='0', rowspan='3')
@@ -67,34 +73,42 @@ Regen	26.00%""")
         self.label7.configure(text='Rune 1 Rarity')
         self.label7.grid(column='0', padx='5', pady='5', row='0')
         self.label7.columnconfigure('0', minsize='0', pad='0')
-        self.spinbox1 = ttk.Spinbox(self.Runesframe, from_=0, to=99)
-        self.spinbox1.configure(increment='1', justify='left', width='5')
-        self.spinbox1.grid(column='1', row='0', sticky='w')
-        self.spinbox1.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r1r = ttk.Spinbox(self.Runesframe, from_=0, to=99)
+        self.spinbox_r1r.configure(increment='1', justify='left', width='5')
+        self.spinbox_r1r.grid(column='1', row='0', sticky='w')
+        self.spinbox_r1r.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r1r.insert('0', '1')
+
         self.label8 = ttk.Label(self.Runesframe)
         self.label8.configure(text='Rune 1 Level')
         self.label8.grid(column='0', padx='5', pady='5', row='1')
         self.label8.columnconfigure('0', minsize='0', pad='0')
-        self.spinbox2 = ttk.Spinbox(self.Runesframe, from_=0, to=10)
-        self.spinbox2.configure(increment='1', width='5')
-        self.spinbox2.grid(column='1', row='1', sticky='w')
-        self.spinbox2.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r1l = ttk.Spinbox(self.Runesframe, from_=0, to=10)
+        self.spinbox_r1l.configure(increment='1', width='5')
+        self.spinbox_r1l.grid(column='1', row='1', sticky='w')
+        self.spinbox_r1l.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r1l.insert('0', '1')
+
         self.label9 = ttk.Label(self.Runesframe)
         self.label9.configure(text='Rune 2 Rarity')
         self.label9.grid(column='0', padx='5', pady='5', row='2')
         self.label9.columnconfigure('0', minsize='0', pad='0')
-        self.spinbox3 = ttk.Spinbox(self.Runesframe, from_=0, to=99)
-        self.spinbox3.configure(increment='1', width='5')
-        self.spinbox3.grid(column='1', row='2', sticky='w')
-        self.spinbox3.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r2r = ttk.Spinbox(self.Runesframe, from_=0, to=99)
+        self.spinbox_r2r.configure(increment='1', width='5')
+        self.spinbox_r2r.grid(column='1', row='2', sticky='w')
+        self.spinbox_r2r.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r2r.insert('0', '1')
+
         self.label10 = ttk.Label(self.Runesframe)
         self.label10.configure(text='Rune 2 Level')
         self.label10.grid(column='0', padx='5', pady='5', row='3')
         self.label10.columnconfigure('0', minsize='0', pad='0')
-        self.spinbox4 = ttk.Spinbox(self.Runesframe, from_=0, to=10)
-        self.spinbox4.configure(increment='1', width='5')
-        self.spinbox4.grid(column='1', row='3', sticky='w')
-        self.spinbox4.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r2l = ttk.Spinbox(self.Runesframe, from_=0, to=10)
+        self.spinbox_r2l.configure(increment='1', width='5')
+        self.spinbox_r2l.grid(column='1', row='3', sticky='w')
+        self.spinbox_r2l.columnconfigure('1', minsize='0', pad='20')
+        self.spinbox_r2l.insert('0', '1')
+
         self.Runesframe.configure(height='200', text='Runes Data Input', width='200')
         self.Runesframe.grid(column='1', row='1', sticky='sw')
         self.Runesframe.rowconfigure('1', minsize='0', weight='1')
@@ -109,17 +123,20 @@ Regen	26.00%""")
         self.label12 = ttk.Label(self.Opponentframe)
         self.label12.configure(text='Opponent Level')
         self.label12.grid(column='0', padx='10', pady='10', row='0')
-        self.spinbox6 = ttk.Spinbox(self.Opponentframe, from_=0, to=999)
-        self.spinbox6.configure(increment='1', width='5')
-        self.spinbox6.grid(column='1', row='0')
-        self.spinbox6.columnconfigure('1', pad='20')
+        self.spinbox_op = ttk.Spinbox(self.Opponentframe, from_=1, to=999)
+        self.spinbox_op.configure(increment='1', width='5')
+        self.spinbox_op.grid(column='1', row='0')
+        self.spinbox_op.columnconfigure('1', pad='20')
+        self.spinbox_op.insert('0', '1')
+
         self.radiobutton1 = ttk.Radiobutton(self.Opponentframe, variable=self.var_opponent_button, value=0)
         self.radiobutton1.configure(text='One level')
         self.radiobutton1.grid(column='0', row='1')
         self.radiobutton2 = ttk.Radiobutton(self.Opponentframe, variable=self.var_opponent_button, value=1)
         self.radiobutton2.configure(state='normal', text='Continuous')
         self.radiobutton2.grid(column='1', row='1')
-        self.button1 = ttk.Button(self.Opponentframe)
+
+        self.button1 = ttk.Button(self.Opponentframe, command=self.buttonCallback)
         self.button1.configure(text='Calculate')
         self.button1.grid(column='0', columnspan='2', padx='5', pady='5', row='2')
         self.Opponentframe.configure(height='200', text='Opponent Data Input', width='200')
@@ -158,10 +175,39 @@ Regen	26.00%""")
     def run(self):
         self.mainwindow.mainloop()
 
+    def buttonCallback(self):
+        print(self.var_opponent_button.get())
+        if self.var_opponent_button.get() == 0:
+            self.buttonOneLevelClicked()
+        if self.var_opponent_button.get() == '1':
+            self.buttonOneLevelClicked()
 
-if __name__ == '__main__':
-    import tkinter as tk
-    root = tk.Tk()
-    app = IoursUi(root)
-    app.run()
+    def buttonOneLevelClicked(self):
+        if not saveFromTextBoxToFile(self.text1, self.text2, self.entry1):
+            tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
+            return False
+
+        try:
+            pet1, pet2, bonus, runes = loadThings()
+        except Exception:
+            tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
+            return False
+
+        rune1_rarity = int(self.spinbox_r1r.get())
+        rune1_level = int(self.spinbox_r1l.get())
+        rune2_rarity = int(self.spinbox_r2r.get())
+        rune2_level = int(self.spinbox_r2l.get())
+        opponent_level = int(self.spinbox_op.get())
+
+        try:
+            ans = getBestRunes(pet1, pet2, bonus, rune1_rarity, rune1_level, rune2_rarity, rune2_level, opponent_level)
+            tkinter.messagebox.showinfo("Best Rune", ans)
+        except Exception:
+            tkinter.messagebox.showinfo("Error", "There were some error during calculations")
+            return False
+
+        return True
+
+
+
 
