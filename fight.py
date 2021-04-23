@@ -1,3 +1,21 @@
+# TODO
+# fight function in C would be speed boost
+# but I have no idea how to import it correctly
+# path = str(os.path.join(pathlib.Path(), "fight.dll"))
+# from ctypes import CDLL
+# c_lib = CDLL("fight")
+# func0 = c_lib.fight
+# func0.restype = c_int
+# res = func0()
+# print("{0:s} returned {1:d}".format(func0.__name__, res))
+#
+# ans = c_lib.fight(3132840264, 73837, 26285, 28796,
+#                   3132840264, 73837, 26285, 28796,
+#                   c_float(9.92), c_float(0.84),
+#                   c_float(0.0975), c_float(0), c_float(0.074),
+#                   351555789279, 0, 344983)
+# print(ans)
+
 def fight(pet1, pet2, bonus, runes, op):
     const()
     favor_stack = 1
