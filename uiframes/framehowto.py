@@ -14,5 +14,5 @@ class FrameHowTo:
         self.label.configure(justify='left', text='After pasting all data, choose opponent level to fight with.'
                                                   ' Program calculates combination of runes which requires least'
                                                   ' heals to win. Choose continuous mode to see which runes are'
-                                                  ' better in the long run (limited to 50 lvl). Your pet input data'
-                                                  ' is stored in iou.txt file.', wraplength='220')
+                                                  ' better in the long run (limited now to 30 lvl). Your pet input'
+                                                  ' data is stored in iou.txt file.', wraplength='220')

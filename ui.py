@@ -9,10 +9,10 @@ from uiframes.frameopponent import FrameOpponent
 from uiframes.framehowto import FrameHowTo
 from uiframes.frameplot import FramePlot
 
+
 from load import loadThings
 from ioumath import getBestRunes
 from utils import saveFromTextBoxToFile
-from plot import plotHeals
 
 
 class IoursUi:
@@ -24,7 +24,7 @@ class IoursUi:
 
         self.Inputframe = ttk.Frame(self.root)
         self.Inputframe.configure(height='200', width='200')
-        self.Inputframe.pack(expand='true', side='top')
+        self.Inputframe.pack(expand='true', side='left')
 
         self.Petframe = FramePet(self.Inputframe)
         self.Runesframe = FrameRunes(self.Inputframe)
@@ -33,7 +33,7 @@ class IoursUi:
 
         self.Outputframe = ttk.Frame(self.root)
         self.Outputframe.configure(height='200', width='200')
-        self.Outputframe.pack(side='top')
+        self.Outputframe.pack(side='right')
 
         self.PlotFrame = FramePlot(self.Outputframe)
 
@@ -71,7 +71,7 @@ class IoursUi:
         if self.OpponentFrame.var_radio.get() == 0:
             buttonOneLevelClicked(params)
         if self.OpponentFrame.var_radio.get() == 1:
-            buttonContinuousClicked(params)
+            buttonContinuousClicked(self.PlotFrame, params)
 
 
 def buttonOneLevelClicked(params):
@@ -91,7 +91,24 @@ def buttonOneLevelClicked(params):
     return True
 
 
-def buttonContinuousClicked(params):
-    pass
+def buttonContinuousClicked(frame, params):
+    limit = 30
+    set_of_runes = _getRunesSet(params, int(limit/10))
+    frame.plotHeals(params, set_of_runes, limit)
 
 
+def _getRunesSet(params, limit):
+    set_of_runes = set()
+    set_of_names = set()
+
+    def do_add(s, x):
+        return len(s) != (s.add(x) or len(s))
+
+    for i in range(limit):
+        rune1, rune2, heals = getBestRunes(params['pet1'], params['pet2'], params['bonus'],
+                                           params['rune1_rarity'], params['rune1_level'],
+                                           params['rune2_rarity'], params['rune2_level'],
+                                           params['opponent_level'] + i * 10)
+        if do_add(set_of_names, (rune1.__repr__(), rune2.__repr__())):
+            do_add(set_of_runes, (rune1, rune2))
+    return set_of_runes
