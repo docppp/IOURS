@@ -1,17 +1,15 @@
-import tkinter.messagebox
 from utils import fillTextBoxAtStartup
 from ui import IoursUi
-
+import tkinter as tk
 
 if __name__ == '__main__':
-    import tkinter as tk
     root = tk.Tk()
     app = IoursUi(root)
-    if not fillTextBoxAtStartup(app.text1, app.text2, app.entry1):
-        # TODO
-        # Textbox should be cleared here, but
-        # they are disabled after removing content
-        tkinter.messagebox.showinfo("No data found", "Wrong or no data found in iou.txt "
-                                                     "If run this app for the first time, then it is ok.")
-    app.run()
+    if not fillTextBoxAtStartup(app.Petframe.text1, app.Petframe.text2, app.Petframe.entry1):
+        app.Petframe.text1.delete('0.0', 'end')
+        app.Petframe.text2.delete('0.0', 'end')
+        app.Petframe.entry1.delete('0', 'end')
+        app.Petframe.text1.insert('0.0', 'Wrong or no data\nfound in iou.txt\n'
+                                         'Its ok if you run\nthis app for the first time.')
 
+    app.run()
