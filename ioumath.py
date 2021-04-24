@@ -59,7 +59,4 @@ def getBestRunes(pet1, pet2, bonus, rune1_rarity, rune1_level, rune2_rarity, run
                 min_heals = cur_heals
                 rcopy1 = copy(rune1)
                 rcopy2 = copy(rune2)
-    print(min_heals)
-    print(rcopy1.__repr__())
-    print(rcopy2.__repr__())
     return rcopy1, rcopy2, min_heals
