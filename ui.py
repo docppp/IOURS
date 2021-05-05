@@ -35,6 +35,11 @@ class IoursUi:
 
         self.PlotFrame = FramePlot(self.Outputframe)
 
+        self.label = ttk.Label(self.Inputframe)
+        self.label.configure(text='IOURS\nIdle Online Universe\nRunes Solver', justify='center',
+                             font=('Arial', 12, 'bold'))
+        self.label.grid(column='1', pady='10', row='1')
+
         # Main widget
         self.mainwindow = self.root
 
@@ -65,11 +70,12 @@ class IoursUi:
             'rune2_level': int(self.Runesframe.spinbox_r2l.get()),
             'opponent_level': int(self.OpponentFrame.spinbox_op.get())
         }
+        capped = self.OpponentFrame.var_radio.get()
 
         if self.OpponentFrame.var_radio.get() == 0:
             buttonOneLevelClicked(params)
         if self.OpponentFrame.var_radio.get() == 1:
-            buttonContinuousClicked(self.PlotFrame, params)
+            buttonContinuousClicked(self.PlotFrame, params, int(self.OpponentFrame.spinbox_limit.get())+1, capped)
 
 
 def buttonOneLevelClicked(params):
@@ -89,10 +95,9 @@ def buttonOneLevelClicked(params):
     return True
 
 
-def buttonContinuousClicked(frame, params):
-    limit = 30
+def buttonContinuousClicked(frame, params, limit=30, capped=False):
     set_of_runes = _getRunesSet(params, int(limit/10))
-    frame.plotHeals(params, set_of_runes, limit)
+    frame.plotHeals(params, set_of_runes, limit, capped)
 
 
 def _getRunesSet(params, limit):

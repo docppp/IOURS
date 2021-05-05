@@ -35,7 +35,7 @@ class FramePlot:
         self.toolbar.children['!button4'].pack_forget()
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-    def plotHeals(self, params, set_of_runes, limit):
+    def plotHeals(self, params, set_of_runes, limit, capped):
         f = plt.figure()
 
         levels_list = list(range(params['opponent_level'], params['opponent_level'] + limit))
@@ -43,8 +43,13 @@ class FramePlot:
             rune = r[0] + r[1]
             heals_list = []
             label = r[0].__repr__() + " + " + r[1].__repr__()
-            for i in levels_list:
-                heals_list.append(calculateHeals(params['pet1'], params['pet2'], params['bonus'], rune, i))
+            if capped:
+                for i in levels_list:
+                    h = calculateHeals(params['pet1'], params['pet2'], params['bonus'], rune, i)
+                    heals_list.append(h if h < 250 else 250)
+            else:
+                for i in levels_list:
+                    heals_list.append(calculateHeals(params['pet1'], params['pet2'], params['bonus'], rune, i))
             plt.plot(levels_list, heals_list, label=label)
 
         plt.grid(True)

@@ -5,9 +5,9 @@ class FrameRunes:
     def __init__(self, master):
         self.Framerunes = ttk.Labelframe(master)
         self.Framerunes.configure(height='200', text='Runes Data Input', width='200')
-        self.Framerunes.grid(column='1', row='1', sticky='sw')
+        self.Framerunes.grid(column='1', row='2', sticky='sw')
         self.Framerunes.rowconfigure('1', minsize='0', weight='1')
-        self.Framerunes.columnconfigure('1', minsize='150', pad='0', weight='1')
+        self.Framerunes.columnconfigure('1', minsize='120', pad='0', weight='1')
 
         # Spinbox
         self.spinbox_r1r = ttk.Spinbox(self.Framerunes, from_=0, to=99)
