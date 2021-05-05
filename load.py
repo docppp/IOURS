@@ -18,6 +18,8 @@ class Runes:
     def __init__(self, **kwargs):
         self.first = 'none'
         self.second = 'none'
+        self.third = 'none'
+        self.fourth = 'none'
 
     def __add__(self, other):
         r = Runes()
@@ -30,7 +32,11 @@ class Runes:
         return r
 
     def __repr__(self):
-        return f'{self.first}, {self.second}'
+        if self.fourth == 'none' and self.third == 'none':
+            return f'{self.first}, {self.second}'
+        if self.fourth == 'none':
+            return f'{self.first}, {self.second}, {self.third}'
+        return f'{self.first}, {self.second}, {self.third}, {self.fourth}'
 
 
 def loadThings() -> (Pet, Pet, Bonus, Runes):
