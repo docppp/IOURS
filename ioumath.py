@@ -80,7 +80,7 @@ rcopy2 = 'er'
 lock = Lock()
 
 
-def getBestRunes(params, progressbar=None, rounds=1):
+def getBestRunes(params, progressbar=None, rounds=1, iter=0):
     global min_heals
     global rcopy1
     global rcopy2
@@ -89,6 +89,7 @@ def getBestRunes(params, progressbar=None, rounds=1):
     rcopy2 = 'er'
     list_rune1, list_rune2 = runesCombList(params['rune1_rarity'], params['rune1_level'],
                                            params['rune2_rarity'], params['rune2_level'])
+    part_done = 100/rounds
     q = []
     with Pool(processes=cpu_count()) as pool:
         r = pool.map_async(getBestRunesHelper, [(x, y, params) for x in list_rune1 for y in list_rune2])
@@ -96,7 +97,7 @@ def getBestRunes(params, progressbar=None, rounds=1):
             if r.ready():
                 break
             remaining = r._number_left
-            progressbar['value'] = 100/(remaining*rounds) if remaining != 0 else 100
+            progressbar['value'] = part_done * iter + (part_done / remaining if remaining != 0 else part_done)
             progressbar.master.update_idletasks()
         q.append(r.get())
         r.wait()

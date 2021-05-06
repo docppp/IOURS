@@ -88,7 +88,7 @@ def buttonOneLevelClicked(progressbar, params):
     progressbar['value'] = 0.0
     progressbar.master.update_idletasks()
     try:
-        rune1, rune2, heals = getBestRunes(params, progressbar, 1)
+        rune1, rune2, heals = getBestRunes(params, progressbar)
         progressbar['value'] += 10
         tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
                                     f"First Rune:\t{rune1.__repr__()}\n"
@@ -119,7 +119,7 @@ def _getRunesSet(progressbar, params, rounds):
 
     for i in range(rounds):
         params['opponent_level'] += i * 10
-        rune1, rune2, heals = getBestRunes(params, progressbar, rounds)
+        rune1, rune2, heals = getBestRunes(params, progressbar, rounds, i)
         params['opponent_level'] -= i * 10
         if do_add(set_of_names, (rune1.__repr__(), rune2.__repr__())):
             do_add(set_of_runes, (rune1, rune2))
