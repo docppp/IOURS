@@ -80,7 +80,7 @@ class IoursUi:
         if self.OpponentFrame.var_radio.get() == 1:
             buttonContinuousClicked(self.PlotFrame, self.progress, params, int(self.OpponentFrame.spinbox_limit.get())+1, capped)
         stop = time.time()
-        print("T: ", stop - start)
+        # print("T: ", stop - start)
         return
 
 
@@ -90,10 +90,12 @@ def buttonOneLevelClicked(progressbar, params):
     try:
         rune1, rune2, heals = getBestRunes(params, progressbar)
         progressbar['value'] += 10
+        sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
         tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
                                     f"First Rune:\t{rune1.__repr__()}\n"
                                     f"Second Rune:\t{rune2.__repr__()}\n"
-                                    f"Used heals:\t{heals}")
+                                    f"Used heals:\t{heals}"
+                                    f"{sidenote}")
     except Exception:
         tkinter.messagebox.showinfo("Error", "There were some error during calculations")
         return False

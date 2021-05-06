@@ -3,7 +3,7 @@
 #define max_regen 30
 #define max_poison 5
 #define max_anger 5
-#define max_heals 2500
+#define max_heals 9999
 #define pierce 1
 #define shield_reduction 0.02
 typedef long long int lint;
