@@ -28,5 +28,5 @@ Paths to vcvars64.bat and cl.exe may vary.
 
 3. EXE
 ````
-pyinstaller -F main.py
+pyinstaller -F --add-data fight.dll;. main.py
 ````
