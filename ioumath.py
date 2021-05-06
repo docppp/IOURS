@@ -7,7 +7,10 @@ from utils import auto_str
 from ctypes import *
 from multiprocessing import Pool, Lock, cpu_count
 
-dll = CDLL('./fight.dll')
+try:
+    dll = CDLL('./fight.dll')
+except FileNotFoundError:
+    pass
 
 
 @auto_str
