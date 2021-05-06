@@ -19,4 +19,4 @@ class FrameHowTo:
                                                   ' calculate, be carreful). Select "Cap Heals" to cap heals usage'
                                                   ' - you cannot win if used heals are above 250. Your pet input'
                                                   ' and runes data are stored in iou.txt file. This is v1.1 IOURS.',
-                             wraplength='643')
+                             wraplength='618')
