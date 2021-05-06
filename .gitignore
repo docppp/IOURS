@@ -3,3 +3,8 @@ __pycache__
 build/
 dist/
 main.spec
+fight.dll
+fight.exp
+fight.lib
+fight.obj
+main.spec

@@ -8,9 +8,15 @@
 #define shield_reduction 0.02
 typedef long long int lint;
 
-__declspec(dllexport) lint __cdecl min(lint x, lint y) { return (x<y?x:y); }
+#ifdef BUILD_DLL
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __declspec(dllimport)
+#endif
 
-__declspec(dllexport) int __cdecl fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_heal,
+lint min(lint x, lint y) { return (x<y?x:y); }
+
+EXPORT int fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_heal,
             lint pet2_dmg, lint pet2_hp, int pet2_regen, int pet2_heal,
             float bonus_reflect, float bonus_converge,
             float runes_poison, float runes_anger, float runes_favor,
