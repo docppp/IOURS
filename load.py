@@ -58,6 +58,11 @@ def loadThings() -> (Pet, Pet, Bonus, Runes):
         text, raw_rune_unused = file.readline().split('\t')
         text, raw_rune_regen = file.readline().split('\t')
         text, raw_converge = file.readline().split(' ')
+        spin_r1r = file.readline()
+        spin_r1l = file.readline()
+        spin_r2r = file.readline()
+        spin_r2l = file.readline()
+        spin_op = file.readline()
 
     bonus = Bonus()
     bonus.armor = float(raw_armor[:-1]) / 100

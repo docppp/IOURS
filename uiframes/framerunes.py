@@ -14,25 +14,21 @@ class FrameRunes:
         self.spinbox_r1r.configure(increment='1', justify='left', width='5')
         self.spinbox_r1r.grid(column='1', row='0', sticky='w')
         self.spinbox_r1r.columnconfigure('1', minsize='0', pad='20')
-        self.spinbox_r1r.insert('0', '1')
 
         self.spinbox_r1l = ttk.Spinbox(self.Framerunes, from_=0, to=10)
         self.spinbox_r1l.configure(increment='1', width='5')
         self.spinbox_r1l.grid(column='1', row='1', sticky='w')
         self.spinbox_r1l.columnconfigure('1', minsize='0', pad='20')
-        self.spinbox_r1l.insert('0', '1')
 
         self.spinbox_r2r = ttk.Spinbox(self.Framerunes, from_=0, to=99)
         self.spinbox_r2r.configure(increment='1', width='5')
         self.spinbox_r2r.grid(column='1', row='2', sticky='w')
         self.spinbox_r2r.columnconfigure('1', minsize='0', pad='20')
-        self.spinbox_r2r.insert('0', '1')
 
         self.spinbox_r2l = ttk.Spinbox(self.Framerunes, from_=0, to=10)
         self.spinbox_r2l.configure(increment='1', width='5')
         self.spinbox_r2l.grid(column='1', row='3', sticky='w')
         self.spinbox_r2l.columnconfigure('1', minsize='0', pad='20')
-        self.spinbox_r2l.insert('0', '1')
 
         # Labels
         self.label1 = ttk.Label(self.Framerunes)

@@ -51,7 +51,8 @@ class IoursUi:
     # TODO
     # Better error handling
     def buttonCallback(self):
-        if not saveFromTextBoxToFile(self.Petframe.text1, self.Petframe.text2, self.Petframe.entry1):
+        if not saveFromTextBoxToFile(self.Petframe.text1, self.Petframe.text2, self.Petframe.entry1,
+                                     self.Runesframe, self.OpponentFrame):
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
             return False
 

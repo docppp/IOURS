@@ -17,7 +17,6 @@ class FrameOpponent:
         self.spinbox_op.configure(increment='1', width='5')
         self.spinbox_op.grid(column='1', row='0', sticky='w')
         self.spinbox_op.columnconfigure('1', pad='20')
-        self.spinbox_op.insert('0', '1')
 
         # Heals cap and cont limit
         self.checkbox_cap = ttk.Checkbutton(self.Frameopponent, variable=self.var_check)
