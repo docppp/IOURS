@@ -19,7 +19,7 @@ class IoursUi:
         # build ui
         self.root = ttk.Frame(master)
         self.root.configure(height='200', width='200')
-        self.root.pack(expand='true', ipadx='10', ipady='10', padx='10', pady='10', side='top')
+        self.root.pack(expand='true', ipadx='0', ipady='0', padx='10', pady='10', side='top')
 
         self.Inputframe = ttk.Frame(self.root)
         self.Inputframe.configure(height='200', width='200')
@@ -32,7 +32,7 @@ class IoursUi:
         self.label = ttk.Label(self.Inputframe)
         self.label.configure(text='IOURS\nIdle Online Universe\nRunes Solver', justify='center',
                              font=('Arial', 12, 'bold'))
-        self.label.grid(column='1', pady='10', row='1')
+        self.label.grid(column='1', pady='5', row='1')
 
         self.Outputframe = ttk.Frame(self.root)
         self.Outputframe.configure(height='200', width='200')

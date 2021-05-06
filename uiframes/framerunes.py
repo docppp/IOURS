@@ -4,10 +4,10 @@ import tkinter.ttk as ttk
 class FrameRunes:
     def __init__(self, master):
         self.Framerunes = ttk.Labelframe(master)
-        self.Framerunes.configure(height='200', text='Runes Data Input', width='200')
+        self.Framerunes.configure(height='200', text='Runes Data Input', width='210')
         self.Framerunes.grid(column='1', row='2', sticky='sw')
         self.Framerunes.rowconfigure('1', minsize='0', weight='1')
-        self.Framerunes.columnconfigure('1', minsize='120', pad='0', weight='1')
+        self.Framerunes.columnconfigure('1', minsize='100', pad='0', weight='1')
 
         # Spinbox
         self.spinbox_r1r = ttk.Spinbox(self.Framerunes, from_=0, to=99)
@@ -33,7 +33,7 @@ class FrameRunes:
         # Labels
         self.label1 = ttk.Label(self.Framerunes)
         self.label1.configure(text='Rune 1 Rarity')
-        self.label1.grid(column='0', padx='5', pady='5', row='0')
+        self.label1.grid(column='0', padx='18', pady='5', row='0')
         self.label1.columnconfigure('0', minsize='0', pad='0')
 
         self.label2 = ttk.Label(self.Framerunes)

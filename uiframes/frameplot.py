@@ -12,6 +12,7 @@ class FramePlot:
         self.master = master
         self.canvas = FigureCanvasTkAgg(None, self.master)
         self.canvas.get_tk_widget().pack(side='top')
+        self.canvas.get_tk_widget().config(height=400, width=600)
 
         self.toolbar = NavigationToolbar2Tk(self.canvas, self.master)
         self.toolbar.children['!button'].pack_forget()
@@ -34,6 +35,7 @@ class FramePlot:
         self.toolbar.children['!button3'].pack_forget()
         self.toolbar.children['!button4'].pack_forget()
         self.canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        self.canvas.get_tk_widget().config(height=400, width=600)
 
     def plotHeals(self, params, set_of_runes, limit, capped):
         f = plt.figure()
