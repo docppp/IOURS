@@ -17,7 +17,7 @@ class FramePet:
 
         # Runes Input
         self.text2 = tk.Text(self.Framepet)
-        self.text2.configure(height='7', setgrid='true', width='30')
+        self.text2.configure(height='8', setgrid='true', width='30')
         self.text2.grid(column='1', padx='0', pady='0', row='2', rowspan='2', sticky='n')
 
         # Converge Input
@@ -44,11 +44,12 @@ Pet 1	Pet 2
         self.label2.grid(column='0', row='1', sticky='ne')
 
         self.label3 = ttk.Label(self.Framepet)
-        self.label3.configure(text="""N26:O32 from Runes e.g.:""")
+        self.label3.configure(text="""N6:O6+N26:O32 from Runes e.g.:""")
         self.label3.grid(column='0', row='2', sticky='ne')
 
         self.label4 = ttk.Label(self.Framepet)
-        self.label4.configure(text="""Adrenaline Rush	0.00%
+        self.label4.configure(text="""Arena 66.675%
+Adrenaline Rush	0.00%
 Anger Issues	0.00%
 Favor	7.40%
 Frenzy	74.00%

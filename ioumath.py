@@ -39,12 +39,21 @@ def generateOpponent(level, bonus_armor, runes_frenzy):
     op.dmg = round(op.base_dmg * bonus_armor / 2)
     return op
 
+min_heals = 99999999
+rcopy1 = 'er'
+rcopy2 = 'er'
+lock = Lock()
+
 
 def preparePet(pet, opponent, bonus, runes):
+    lock.acquire()
     ret_pet = copy(pet)
-    ret_pet.dmg = int(pet.dmg / opponent.defense * (1 + runes.frenzy) / (1 + runes.adrenaline * 0.1))
-    ret_pet.regen = int(pet.hp * (bonus.regen + runes.regen))
-    ret_pet.heal = int(pet.hp * bonus.heals)
+    lock.release()
+    ret_pet.dmg = int(ret_pet.dmg / opponent.defense * (1 + runes.frenzy) * (1 + runes.adrenaline * 0.1))
+    ret_pet.hp = int(ret_pet.hp * (1+runes.adrenaline))
+    ret_pet.regen = int(ret_pet.hp * (bonus.regen + runes.regen))
+    ret_pet.reduce_regen = int(ret_pet.hp * bonus.regen)
+    ret_pet.heal = int(ret_pet.hp * bonus.heals)
     return ret_pet
 
 
@@ -69,18 +78,12 @@ def calculateHeals(pet1, pet2, bonus, runes, level):
     op_base_dmg = c_longlong(op.base_dmg)
     op_shield = c_float(op.shield)
 
-    ret = dll.fight(pet1_dmg, pet1_hp, p1.regen, p1.heal,
-                    pet2_dmg, pet2_hp, p2.regen, p2.heal,
+    ret = dll.fight(pet1_dmg, pet1_hp, p1.regen, p1.reduce_regen, p1.heal,
+                    pet2_dmg, pet2_hp, p2.regen,p2.reduce_regen, p2.heal,
                     bonus_reflect, bonus_converge,
                     runes_poison, runes_anger, runes_favor,
                     op_hp, op_shield, op_base_dmg, op.dmg)
     return ret
-
-
-min_heals = 99999999
-rcopy1 = 'er'
-rcopy2 = 'er'
-lock = Lock()
 
 
 def getBestRunes(params, progressbar=None, rounds=1, iter=0):
@@ -91,7 +94,7 @@ def getBestRunes(params, progressbar=None, rounds=1, iter=0):
     rcopy1 = 'er'
     rcopy2 = 'er'
     list_rune1, list_rune2 = runesCombList(params['rune1_rarity'], params['rune1_level'],
-                                           params['rune2_rarity'], params['rune2_level'])
+                                           params['rune2_rarity'], params['rune2_level'], params['arena'])
     part_done = 100/rounds
     q = []
     with Pool(processes=cpu_count()) as pool:

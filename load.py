@@ -50,6 +50,7 @@ def loadThings() -> (Pet, Pet, Bonus, Runes):
         raw_regen, text = file.readline().split('\t')
         raw_anger, raw_favor = file.readline().split('\t')
         raw_poison, text = file.readline().split('\t')
+        text, raw_rune_arena = file.readline().split('\t')
         text, raw_rune_adrenaline = file.readline().split('\t')
         text, raw_rune_anger = file.readline().split('\t')
         text, raw_rune_favor = file.readline().split('\t')
@@ -72,6 +73,7 @@ def loadThings() -> (Pet, Pet, Bonus, Runes):
     bonus.converge = float(raw_converge[:-2]) / 100
 
     runes = Runes()
+    runes.arena = float(raw_rune_arena[:-2]) / 100
     runes.adrenaline = float(raw_rune_adrenaline[:-2]) / 100
     runes.anger = float(raw_rune_anger[:-2]) / 100
     runes.favor = float(raw_rune_favor[:-2]) / 100
@@ -81,10 +83,10 @@ def loadThings() -> (Pet, Pet, Bonus, Runes):
 
     pet1 = Pet()
     pet2 = Pet()
-    pet1.dmg = int(int(raw_dmg1.replace(',', '')) / (1 + runes.frenzy) * (1 + runes.adrenaline * 0.1))
-    pet2.dmg = int(int(raw_dmg2.replace(',', '')) / (1 + runes.frenzy) * (1 + runes.adrenaline * 0.1))
-    pet1.hp = int(int(raw_hp1.replace(',', '')) / (1 + runes.adrenaline))
-    pet2.hp = int(int(raw_hp2.replace(',', '')) / (1 + runes.adrenaline))
+    pet1.dmg = float(int(raw_dmg1.replace(',', '')) / ((1 + runes.frenzy) * (1 + runes.adrenaline * 0.1)))
+    pet2.dmg = float(int(raw_dmg2.replace(',', '')) / ((1 + runes.frenzy) * (1 + runes.adrenaline * 0.1)))
+    pet1.hp = float(int(raw_hp1.replace(',', '')) / (1 + runes.adrenaline))
+    pet2.hp = float(int(raw_hp2.replace(',', '')) / (1 + runes.adrenaline))
 
     bonus.regen -= runes.regen
     runes.adrenaline = 0

@@ -6,6 +6,8 @@
 #define max_heals 9999
 #define pierce 1
 #define shield_reduction 0.02
+#define max_rune_regen 30
+#define max_node_regen 100
 typedef long long int lint;
 
 #ifdef BUILD_DLL
@@ -16,8 +18,8 @@ typedef long long int lint;
 
 lint min(lint x, lint y) { return (x<y?x:y); }
 
-EXPORT int fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_heal,
-            lint pet2_dmg, lint pet2_hp, int pet2_regen, int pet2_heal,
+EXPORT int fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_reduced_regen, int pet1_heal,
+            lint pet2_dmg, lint pet2_hp, int pet2_regen, int pet2_reduced_regen, int pet2_heal,
             float bonus_reflect, float bonus_converge,
             float runes_poison, float runes_anger, float runes_favor,
             lint op_hp, float op_shield, lint op_base_dmg, int op_dmg)
@@ -47,8 +49,8 @@ EXPORT int fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_heal,
         float converge = (pet1Damage + pet2Damage) * bonus_converge;
 
         // Regen
-        pet1HP += i <= max_regen ? pet1_regen : 0;
-        pet2HP += i <= max_regen ? pet2_regen : 0;
+        pet1HP += (i <= max_rune_regen ? pet1_regen : (i <= max_node_regen ? pet1_reduced_regen : 0));
+        pet2HP += (i <= max_rune_regen ? pet2_regen : (i <= max_node_regen ? pet2_reduced_regen : 0));
 
         // Fight
         lint damage = pet1Damage + pet1Reflect + pet2Damage + pet2Reflect + converge;
@@ -57,8 +59,8 @@ EXPORT int fight(lint pet1_dmg, lint pet1_hp, int pet1_regen, int pet1_heal,
         // Pets below 0 hp do not receive any damage. If one pet is dead the other one will take double damage.
         lint d1 = op_dmg * (pet2HP <= 0 ? 2 : 1) / favor_stack;
         lint d2 = op_dmg * (pet1HP <= 0 ? 2 : 1) / favor_stack;
-        pet1HP -= d1;
-        pet2HP -= d2;
+        if (pet1HP > 0) pet1HP -= d1;
+        if (pet2HP > 0) pet2HP -= d2;
 
         // Heal
         while (usedHeals < max_heals && (pet1HP <= 0 || pet2HP <= 0))

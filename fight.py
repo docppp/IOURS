@@ -1,21 +1,3 @@
-# TODO
-# fight function in C would be speed boost
-# but I have no idea how to import it correctly
-# path = str(os.path.join(pathlib.Path(), "fight.dll"))
-# from ctypes import CDLL
-# c_lib = CDLL("fight")
-# func0 = c_lib.fight
-# func0.restype = c_int
-# res = func0()
-# print("{0:s} returned {1:d}".format(func0.__name__, res))
-#
-# ans = c_lib.fight(3132840264, 73837, 26285, 28796,
-#                   3132840264, 73837, 26285, 28796,
-#                   c_float(9.92), c_float(0.84),
-#                   c_float(0.0975), c_float(0), c_float(0.074),
-#                   351555789279, 0, 344983)
-# print(ans)
-
 def fight(pet1, pet2, bonus, runes, op):
     const()
     favor_stack = 1
@@ -40,8 +22,8 @@ def fight(pet1, pet2, bonus, runes, op):
         converge = (pet1Damage + pet2Damage) * bonus.converge
 
         # Regen
-        pet1HP += (pet1.regen if i <= const.max_regen else 0)
-        pet2HP += (pet2.regen if i <= const.max_regen else 0)
+        pet1HP += pet1.regen if i <= const.max_rune_regen else (pet1.reduce_regen if i <= const.max_node_regen else 0)
+        pet2HP += pet2.regen if i <= const.max_rune_regen else (pet2.reduce_regen if i <= const.max_node_regen else 0)
 
         # Fight
         damage = pet1Damage + pet1Reflect + pet2Damage + pet2Reflect + converge
@@ -50,8 +32,10 @@ def fight(pet1, pet2, bonus, runes, op):
         # Pets below 0 hp do not receive any damage. If one pet is dead the other one will take double damage.
         d1 = int(op.dmg * (2 if pet2HP <= 0 else 1) / favor_stack)
         d2 = int(op.dmg * (2 if pet1HP <= 0 else 1) / favor_stack)
-        pet1HP -= d1
-        pet2HP -= d2
+        if pet1HP > 0:
+            pet1HP -= d1
+        if pet2HP > 0:
+            pet2HP -= d2
 
         # Heal
         while (usedHeals < const.max_heals) and (pet1HP <= 0 or pet2HP <= 0):
@@ -85,3 +69,5 @@ def const():
     const.max_heals = 2500
     const.pierce = 1
     const.shield_reduction = 0.02
+    const.max_rune_regen = 30
+    const.max_node_regen = 100

@@ -25,7 +25,7 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
 
             tmp = ''
             try:
-                for i in range(9, 16):
+                for i in range(9, 17):
                     tmp += text[i]
             except IndexError:
                 return False
@@ -33,18 +33,18 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
 
             tmp = ''
             try:
-                for i in range(16, 17):
+                for i in range(17, 18):
                     tmp += text[i]
             except IndexError:
                 return False
             converge_box.insert('0', tmp[:-1])
 
             try:
-                runes_spin.spinbox_r1r.insert('0', text[17][:-1])
-                runes_spin.spinbox_r1l.insert('0', text[18][:-1])
-                runes_spin.spinbox_r2r.insert('0', text[19][:-1])
-                runes_spin.spinbox_r2l.insert('0', text[20][:-1])
-                op_spin.spinbox_op.insert('0', text[21][:-1])
+                runes_spin.spinbox_r1r.insert('0', text[18][:-1])
+                runes_spin.spinbox_r1l.insert('0', text[19][:-1])
+                runes_spin.spinbox_r2r.insert('0', text[20][:-1])
+                runes_spin.spinbox_r2l.insert('0', text[21][:-1])
+                op_spin.spinbox_op.insert('0', text[22][:-1])
             except IndexError:
                 return False
 

@@ -71,7 +71,8 @@ class IoursUi:
             'rune1_level': int(self.Runesframe.spinbox_r1l.get()),
             'rune2_rarity': int(self.Runesframe.spinbox_r2r.get()),
             'rune2_level': int(self.Runesframe.spinbox_r2l.get()),
-            'opponent_level': int(self.OpponentFrame.spinbox_op.get())
+            'opponent_level': int(self.OpponentFrame.spinbox_op.get()),
+            'arena': runes.arena
         }
         capped = self.OpponentFrame.var_check.get()
 
