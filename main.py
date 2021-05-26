@@ -13,7 +13,7 @@ if __name__ == '__main__':
     except FileNotFoundError:
         dll_found = False
     root = tk.Tk()
-    root.title('IOURS - IOU Rune Solver')
+    root.title('IOURS - IOU Runes Solver')
     app = IoursUi(root)
     if not fillTextBoxAtStartup(app.Petframe.text1, app.Petframe.text2, app.Petframe.entry1,
                                 app.Runesframe, app.OpponentFrame):
@@ -26,6 +26,5 @@ if __name__ == '__main__':
         app.Petframe.text2.delete('0.0', 'end')
         app.Petframe.text2.insert('0.0', 'Cannot find fight.dll\nProgram will not work.')
         app.OpponentFrame.button.configure(state='disabled')
-
 
     app.run()
