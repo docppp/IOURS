@@ -1,7 +1,7 @@
 # IOURS
  Idle Online Universe Runes Solver
 
-Math based on Multicalc v10.0.3
+Math based on Multicalc v10.4.1
 
 # Usage
 ### One level
