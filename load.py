@@ -20,9 +20,18 @@ class Runes:
         self.second = 'none'
         self.third = 'none'
         self.fourth = 'none'
+        self.arena = 0
+        self.adrenaline = 0
+        self.anger = 0
+        self.favor = 0
+        self.frenzy = 0
+        self.poison = 0
+        self.regen = 0
 
     def __add__(self, other):
         r = Runes()
+        assert(self.arena == other.arena)
+        r.arena = self.arena
         r.adrenaline = self.adrenaline + other.adrenaline
         r.anger = self.anger + other.anger
         r.favor = self.favor + other.favor
@@ -63,19 +72,17 @@ class Loader(metaclass=Singleton):
         'raw_converge': 17,
     }
 
-    def __init__(self, file="iou.txt"):
+    def __init__(self):
         self.bonus = None
         self.runes = None
         self.pets = None
+        self.file_path = None
+        self.file_content = None
+
+    def loadFile(self, file="iou.txt"):
         self.file_path = file
         with open(self.file_path) as file:
             self.file_content = file.readlines()
-        try:
-            self.getBonus()
-            self.getRunes()
-            self.getPets()
-        finally:
-            pass
 
     def reload(self):
         self.getBonus()
