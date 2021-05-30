@@ -57,27 +57,12 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-class Loader(metaclass=Singleton):
-
-    _raw_lines = {
-        'raw_dmg': 2,
-        'raw_hp': 3,
-        'raw_armor': 4,
-        'raw_reflect_heals': 5,
-        'raw_regen': 6,
-        'raw_rune_arena': 9,
-        'raw_rune_adrenaline': 10,
-        'raw_rune_frenzy': 13,
-        'raw_rune_regen': 16,
-        'raw_converge': 17,
-    }
-
+class LoaderBase:
     def __init__(self):
-        self.bonus = None
-        self.runes = None
-        self.pets = None
         self.file_path = None
         self.file_content = None
+        self.getter = []
+        self._raw_lines = {}
 
     def loadFile(self, file="iou.txt"):
         self.file_path = file
@@ -85,11 +70,37 @@ class Loader(metaclass=Singleton):
             self.file_content = file.readlines()
 
     def reload(self):
-        self.getBonus()
-        self.getRunes()
-        self.getPets()
+        for call in self.getter:
+            getattr(self, call)()
+
+    def _getRawLine(self, line: str) -> list[str]:
+        d = ' ' if line == 'raw_converge' else '\t'
+        return self.file_content[self._raw_lines[line]].split(d)
+
+
+class LoaderPets(LoaderBase, metaclass=Singleton):
+
+    def __init__(self):
+        super().__init__()
+        self.bonus = None
+        self.runes = None
+        self.pets = None
+        self.getter = ['getBonus', 'getRunes', 'getPets']
+        self._raw_lines = {
+            'raw_dmg': 2,
+            'raw_hp': 3,
+            'raw_armor': 4,
+            'raw_reflect_heals': 5,
+            'raw_regen': 6,
+            'raw_rune_arena': 9,
+            'raw_rune_adrenaline': 10,
+            'raw_rune_frenzy': 13,
+            'raw_rune_regen': 16,
+            'raw_converge': 17,
+        }
 
     def getBonus(self):
+        print("bonus")
         raw_armor, text = self._getRawLine('raw_armor')
         raw_reflect, raw_heals = self._getRawLine('raw_reflect_heals')
         raw_regen, text = self._getRawLine('raw_regen')
@@ -104,12 +115,14 @@ class Loader(metaclass=Singleton):
         return self.bonus
 
     def getRunes(self):
+        print("runes")
         text, raw_rune_arena = self._getRawLine('raw_rune_arena')
         self.runes = Runes()
         self.runes.arena = float(raw_rune_arena[:-2]) / 100
         return self.runes
 
     def getPets(self):
+        print("pets")
         raw_dmg1, raw_dmg2 = self._getRawLine('raw_dmg')
         raw_hp1, raw_hp2 = self._getRawLine('raw_hp')
         text, raw_rune_adrenaline = self._getRawLine('raw_rune_adrenaline')
@@ -124,10 +137,6 @@ class Loader(metaclass=Singleton):
         pet2.hp = float(int(raw_hp2.replace(',', '')) / (1 + adrenaline))
         self.pets = pet1, pet2
         return self.pets
-
-    def _getRawLine(self, line: str) -> list[str]:
-        d = ' ' if line == 'raw_converge' else '\t'
-        return self.file_content[self._raw_lines[line]].split(d)
 
 
 def loadThings() -> (Pet, Pet, Bonus, Runes):

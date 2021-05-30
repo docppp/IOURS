@@ -2,7 +2,7 @@ import unittest
 from unittest import mock
 from unittest.mock import patch
 from test_coverage import TestCoverage
-from load import Loader
+from load import LoaderPets
 
 mock_content = """AP Arena Stats	
 Pet 1	Pet 2
@@ -30,12 +30,12 @@ Converge 100%
 """
 
 
-class TestLoader(unittest.TestCase, TestCoverage):
-    test_class = Loader
+class TestLoaderPets(unittest.TestCase, TestCoverage):
+    test_class = LoaderPets
 
     @classmethod
     def setUpClass(cls):
-        cls.loader = Loader()
+        cls.loader = LoaderPets()
         mocked_open_function = mock.mock_open(read_data=mock_content)
         with mock.patch("builtins.open", mocked_open_function):
             cls.loader.loadFile()
@@ -45,9 +45,9 @@ class TestLoader(unittest.TestCase, TestCoverage):
         self.assertEqual(check, self.loader.file_content)
 
     def test_reload(self):
-        with patch.object(Loader, 'getBonus') as mock_bonus, \
-                patch.object(Loader, 'getRunes') as mock_runes, \
-                patch.object(Loader, 'getPets') as mock_pets:
+        with patch.object(self.test_class, 'getBonus') as mock_bonus, \
+                patch.object(self.test_class, 'getRunes') as mock_runes, \
+                patch.object(self.test_class, 'getPets') as mock_pets:
             self.loader.reload()
         mock_bonus.assert_called_once()
         mock_runes.assert_called_once()
@@ -81,6 +81,10 @@ class TestLoader(unittest.TestCase, TestCoverage):
         self.assertEqual(pet2.dmg, pet2_dmg)
         self.assertEqual(pet1.hp, pet1_hp)
         self.assertEqual(pet2.hp, pet2_hp)
+
+    # def test_test(self):
+        # for f in [f for f in self.loader.__class__.__dict__.keys() if f.startswith('get')]:
+        #     getattr(self.loader, f)()
 
 
 if __name__ == '__main__':
