@@ -36,6 +36,7 @@ def getRunesFourthBonus(rarity, level, arena, name):
 
 def createRunes(rarity, level, arena, first_bonus, second_bonus, third_bonus=None, fourth_bonus=None):
     runes = Runes()
+    runes.arena = arena
     runes.adrenaline = 0
     runes.anger = 0
     runes.favor = 0
