@@ -3,12 +3,11 @@ from unittest import mock
 from unittest.mock import patch
 from test_coverage import TestCoverage
 from load import Loader
-from os import linesep
 
 mock_content = """AP Arena Stats	
 Pet 1	Pet 2
 1,000,000,000,001	1,000,000,000,002
-3,000,01	3,000,002
+3,000,001	3,000,002
 4.50%	Heals
 3000.00%	90.00%
 30.00%	Favor
@@ -71,6 +70,17 @@ class TestLoader(unittest.TestCase, TestCoverage):
         self.assertEqual(runes.frenzy, 0)
         self.assertEqual(runes.poison, 0)
         self.assertEqual(runes.regen, 0)
+
+    def test_getPets(self):
+        pet1, pet2 = self.loader.getPets()
+        pet1_dmg = 1000000000001 / ((1 + 0.001) * (1 + 3.90 * 0.1))
+        pet2_dmg = 1000000000002 / ((1 + 0.001) * (1 + 3.90 * 0.1))
+        pet1_hp = 3000001 / (1 + 3.90)
+        pet2_hp = 3000002 / (1 + 3.90)
+        self.assertEqual(pet1.dmg, pet1_dmg)
+        self.assertEqual(pet2.dmg, pet2_dmg)
+        self.assertEqual(pet1.hp, pet1_hp)
+        self.assertEqual(pet2.hp, pet2_hp)
 
 
 if __name__ == '__main__':
