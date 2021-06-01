@@ -1,33 +1,8 @@
 import unittest
 from unittest import mock
-from unittest.mock import patch
 from test_coverage import TestCoverage
-from load import LoaderPets
-
-mock_content = """AP Arena Stats	
-Pet 1	Pet 2
-1,000,000,000,001	1,000,000,000,002
-3,000,001	3,000,002
-4.50%	Heals
-3000.00%	90.00%
-30.00%	Favor
-1.0%	70.0000%
-2.0%	
-Arena	66.675%
-Adrenaline Rush	390.0000%
-Anger Issues	4.0%
-Favor	70.0000%
-Frenzy	0.1%
-Poisonous	0.2%
-Premeditated	0.3%
-Regen	10%
-Converge 100%
-20
-0
-20
-0
-690
-"""
+from loader_pets import LoaderPets
+from test_mock_content import mock_content
 
 
 class TestLoaderPets(unittest.TestCase, TestCoverage):
@@ -39,19 +14,6 @@ class TestLoaderPets(unittest.TestCase, TestCoverage):
         mocked_open_function = mock.mock_open(read_data=mock_content)
         with mock.patch("builtins.open", mocked_open_function):
             cls.loader.loadFile()
-
-    def test_loadFile(self):
-        check = [line+"\n" for line in mock_content.split("\n") if line]
-        self.assertEqual(check, self.loader.file_content)
-
-    def test_reload(self):
-        with patch.object(self.test_class, 'getBonus') as mock_bonus, \
-                patch.object(self.test_class, 'getRunes') as mock_runes, \
-                patch.object(self.test_class, 'getPets') as mock_pets:
-            self.loader.reload()
-        mock_bonus.assert_called_once()
-        mock_runes.assert_called_once()
-        mock_pets.assert_called_once()
 
     def test_getBonus(self):
         bonus = self.loader.getBonus()
@@ -81,10 +43,6 @@ class TestLoaderPets(unittest.TestCase, TestCoverage):
         self.assertEqual(pet2.dmg, pet2_dmg)
         self.assertEqual(pet1.hp, pet1_hp)
         self.assertEqual(pet2.hp, pet2_hp)
-
-    # def test_test(self):
-        # for f in [f for f in self.loader.__class__.__dict__.keys() if f.startswith('get')]:
-        #     getattr(self.loader, f)()
 
 
 if __name__ == '__main__':
