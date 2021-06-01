@@ -1,3 +1,4 @@
+from runes import Runes
 from utils import auto_str
 
 
@@ -11,41 +12,6 @@ class Pet:
 class Bonus:
     def __init__(self, **kwargs):
         pass
-
-
-@auto_str
-class Runes:
-    def __init__(self, **kwargs):
-        self.first = 'none'
-        self.second = 'none'
-        self.third = 'none'
-        self.fourth = 'none'
-        self.arena = 0
-        self.adrenaline = 0
-        self.anger = 0
-        self.favor = 0
-        self.frenzy = 0
-        self.poison = 0
-        self.regen = 0
-
-    def __add__(self, other):
-        r = Runes()
-        assert(self.arena == other.arena)
-        r.arena = self.arena
-        r.adrenaline = self.adrenaline + other.adrenaline
-        r.anger = self.anger + other.anger
-        r.favor = self.favor + other.favor
-        r.frenzy = self.frenzy + other.frenzy
-        r.poison = self.poison + other.poison
-        r.regen = self.regen + other.regen
-        return r
-
-    def __repr__(self):
-        if self.fourth == 'none' and self.third == 'none':
-            return f'{self.first}, {self.second}'
-        if self.fourth == 'none':
-            return f'{self.first}, {self.second}, {self.third}'
-        return f'{self.first}, {self.second}, {self.third}, {self.fourth}'
 
 
 def loadThings() -> (Pet, Pet, Bonus, Runes):
