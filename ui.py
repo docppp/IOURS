@@ -9,9 +9,9 @@ from uiframes.framehowto import FrameHowTo
 from uiframes.frameplot import FramePlot
 
 
-from load import loadThings
 from rns.ioumath import getBestRunes
 from utils import saveFromTextBoxToFile
+from ldr.loader_master import LoaderMaster
 
 
 class IoursUi:
@@ -56,11 +56,15 @@ class IoursUi:
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
             return False
 
-        try:
-            pet1, pet2, bonus, runes = loadThings()
-        except Exception:
-            tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
-            return False
+        # try:
+        loader = LoaderMaster()
+        loader.reload()
+        pet1, pet2 = loader.pets.pets
+        bonus = loader.pets.bonus
+        runes = loader.pets.runes
+        # except Exception:
+        #     tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
+        #     return False
 
         params = {
             'pet1': pet1,
@@ -83,6 +87,7 @@ class IoursUi:
             buttonContinuousClicked(self.PlotFrame, self.progress, params, int(self.OpponentFrame.spinbox_limit.get())+1, capped)
         stop = time.time()
         # print("T: ", stop - start)
+        print("DDDDupa")
         return
 
 
