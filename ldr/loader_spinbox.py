@@ -1,4 +1,4 @@
-from loader_base import LoaderBase, Singleton
+from .loader_base import LoaderBase, Singleton
 
 
 class LoaderSpinbox(LoaderBase, metaclass=Singleton):

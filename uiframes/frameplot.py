@@ -2,7 +2,7 @@ import tkinter as tk
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-from ioumath import calculateHeals
+from rns.ioumath import calculateHeals
 
 matplotlib.use("TkAgg")
 

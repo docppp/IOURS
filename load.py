@@ -1,6 +1,6 @@
-from runes import Runes
+from rns.runes import Runes
 from utils import auto_str
-from pet import Pet
+from rns.pet import Pet
 
 
 @auto_str

@@ -1,6 +1,6 @@
 import unittest
-from test_coverage import TestCoverage
-from runes import Runes
+from .test_coverage import TestCoverage
+from rns.runes import Runes
 
 
 class TestRunes(unittest.TestCase, TestCoverage):

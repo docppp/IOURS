@@ -1,7 +1,7 @@
-from loader_base import LoaderBase, Singleton
+from .loader_base import LoaderBase, Singleton
 from load import Bonus
-from pet import Pet
-from runes import Runes
+from rns.pet import Pet
+from rns.runes import Runes
 
 
 class LoaderPets(LoaderBase, metaclass=Singleton):

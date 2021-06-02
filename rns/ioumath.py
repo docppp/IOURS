@@ -1,9 +1,9 @@
 from copy import copy
-from fight import fight
-from runes import Runes
+from .fight import fight
+from .runes import Runes
 from ctypes import *
 from multiprocessing import Pool, Lock, cpu_count
-from opponent import Opponent
+from .opponent import Opponent
 
 try:
     dll = CDLL('./fight.dll')
@@ -15,18 +15,6 @@ min_heals = 99999999
 rcopy1 = 'er'
 rcopy2 = 'er'
 lock = Lock()
-
-
-# def preparePet(pet, opponent, bonus, runes):
-#     lock.acquire()
-#     ret_pet = copy(pet)
-#     lock.release()
-#     ret_pet.dmg = int(ret_pet.dmg / opponent.defense * (1 + runes.frenzy) * (1 + runes.adrenaline * 0.1))
-#     ret_pet.hp = int(ret_pet.hp * (1 + runes.adrenaline))
-#     ret_pet.regen = int(ret_pet.hp * (bonus.regen + runes.regen))
-#     ret_pet.reduce_regen = int(ret_pet.hp * bonus.regen)
-#     ret_pet.heal = int(ret_pet.hp * bonus.heals)
-#     return ret_pet
 
 
 def calculateHeals(pet1, pet2, bonus, runes, level):

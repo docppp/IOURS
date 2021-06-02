@@ -1,8 +1,8 @@
 import unittest
 from unittest import mock
-from test_coverage import TestCoverage
-from loader_spinbox import LoaderSpinbox
-from test_mock_content import mock_content
+from .test_coverage import TestCoverage
+from .test_mock_content import mock_content
+from ldr.loader_spinbox import LoaderSpinbox
 
 
 class TestLoaderSpinbox(unittest.TestCase, TestCoverage):

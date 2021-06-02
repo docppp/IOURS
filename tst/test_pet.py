@@ -1,10 +1,10 @@
 import unittest
 from unittest import mock
-from test_coverage import TestCoverage
-from pet import Pet
-from opponent import Opponent
-from loader_pets import LoaderPets
-from test_mock_content import mock_content
+from .test_coverage import TestCoverage
+from .test_mock_content import mock_content
+from ldr.loader_pets import LoaderPets
+from rns.opponent import Opponent
+from rns.pet import Pet
 
 
 class TestPet(unittest.TestCase, TestCoverage):

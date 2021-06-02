@@ -10,7 +10,7 @@ from uiframes.frameplot import FramePlot
 
 
 from load import loadThings
-from ioumath import getBestRunes
+from rns.ioumath import getBestRunes
 from utils import saveFromTextBoxToFile
 
 
