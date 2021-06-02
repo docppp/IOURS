@@ -1,11 +1,6 @@
 from runes import Runes
 from utils import auto_str
-
-
-@auto_str
-class Pet:
-    def __init__(self, **kwargs):
-        pass
+from pet import Pet
 
 
 @auto_str

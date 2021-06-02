@@ -1,5 +1,7 @@
-from load import Bonus, Runes, Pet
 from loader_base import LoaderBase, Singleton
+from load import Bonus
+from pet import Pet
+from runes import Runes
 
 
 class LoaderPets(LoaderBase, metaclass=Singleton):
@@ -24,7 +26,6 @@ class LoaderPets(LoaderBase, metaclass=Singleton):
         }
 
     def getBonus(self):
-        print("bonus")
         raw_armor, text = self._getRawLine('raw_armor')
         raw_reflect, raw_heals = self._getRawLine('raw_reflect_heals')
         raw_regen, text = self._getRawLine('raw_regen')
@@ -39,14 +40,12 @@ class LoaderPets(LoaderBase, metaclass=Singleton):
         return self.bonus
 
     def getRunes(self):
-        print("runes")
         text, raw_rune_arena = self._getRawLine('raw_rune_arena')
         self.runes = Runes()
         self.runes.arena = float(raw_rune_arena[:-2]) / 100
         return self.runes
 
     def getPets(self):
-        print("pets")
         raw_dmg1, raw_dmg2 = self._getRawLine('raw_dmg')
         raw_hp1, raw_hp2 = self._getRawLine('raw_hp')
         text, raw_rune_adrenaline = self._getRawLine('raw_rune_adrenaline')
