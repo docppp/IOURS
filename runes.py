@@ -34,7 +34,7 @@ class Runes:
 
     def __add__(self, other):
         r = Runes()
-        assert(self.arena == other.arena)
+        assert (self.arena == other.arena)
         r.arena = self.arena
         r.adrenaline = self.adrenaline + other.adrenaline
         r.anger = self.anger + other.anger
@@ -52,13 +52,19 @@ class Runes:
         return f'{self.first}, {self.second}, {self.third}, {self.fourth}'
 
     @staticmethod
-    def _getRunesBonusValue(bonus_number, rarity, level, arena, name):
+    def _getRunesBonusValue(bonus_number, rarity, level, arena, name) -> float:
+        """
+        :return: Numeric value of n-th bonus in rune with respect to rarity, level and arena bonus
+        """
         multiplier = 1 if bonus_number == 1 else 2 if bonus_number == 2 else 4
         return (1 + (rarity * Runes._scaling['rarity'] + level)
-                * Runes._scaling['level']) / 100 * Runes._efficiency[name] / multiplier * (1+arena)
+                * Runes._scaling['level']) / 100 * Runes._efficiency[name] / multiplier * (1 + arena)
 
     @staticmethod
     def createRunes(rarity, level, arena, first_bonus, second_bonus, third_bonus=None, fourth_bonus=None):
+        """
+        :return: Single rune with values of given bonuses and arena bonus
+        """
         runes = Runes()
         runes.arena = arena
         runes.__setattr__(first_bonus, runes.__dict__.get(first_bonus)
@@ -83,24 +89,30 @@ class Runes:
 
     @staticmethod
     def runesCombList(rarity1, level1, rarity2, level2, arena) -> [list, list]:
+        """
+        :return: Two lists with all possible runes which bonuses respect level and rarity values with arena bonus
+        """
         runes_list1 = []
         comb1 = Runes._runesCombListHelper(rarity1)
         for i in list(comb1):
             runes_list1.append(Runes.createRunes(rarity1, level1, arena, i[0], i[1],
-                                           i[2] if 2 < len(i) else None,
-                                           i[3] if 3 < len(i) else None))
+                                                 i[2] if 2 < len(i) else None,
+                                                 i[3] if 3 < len(i) else None))
 
         runes_list2 = []
         comb2 = Runes._runesCombListHelper(rarity2)
         for i in list(comb2):
             runes_list2.append(Runes.createRunes(rarity2, level2, arena, i[0], i[1],
-                                           i[2] if 2 < len(i) else None,
-                                           i[3] if 3 < len(i) else None))
+                                                 i[2] if 2 < len(i) else None,
+                                                 i[3] if 3 < len(i) else None))
 
         return runes_list1, runes_list2
 
     @staticmethod
-    def _runesCombListHelper(rarity):
+    def _runesCombListHelper(rarity) -> list:
+        """
+        :return: list off all possible bonus combination in rune with given rarity
+        """
         comb = []
         if rarity < 15:
             comb = product(Runes._bonus_list, Runes._bonus_list)
