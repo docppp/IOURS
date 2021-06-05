@@ -58,7 +58,7 @@ class IoursUi:
 
         # try:
         loader = LoaderMaster()
-        loader.reload()
+        loader.re()
         pet1, pet2 = loader.pets.pets
         bonus = loader.pets.bonus
         runes = loader.pets.runes
@@ -87,7 +87,6 @@ class IoursUi:
             buttonContinuousClicked(self.PlotFrame, self.progress, params, int(self.OpponentFrame.spinbox_limit.get())+1, capped)
         stop = time.time()
         # print("T: ", stop - start)
-        print("DDDDupa")
         return
 
 
@@ -99,8 +98,8 @@ def buttonOneLevelClicked(progressbar, params):
         progressbar['value'] += 10
         sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
         tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
-                                    f"First Rune:\t{rune1.__repr__()}\n"
-                                    f"Second Rune:\t{rune2.__repr__()}\n"
+                                    f"First Rune:\t{rune1.__str__()}\n"
+                                    f"Second Rune:\t{rune2.__str__()}\n"
                                     f"Used heals:\t{heals}"
                                     f"{sidenote}")
     except Exception:
@@ -130,6 +129,6 @@ def _getRunesSet(progressbar, params, rounds):
         params['opponent_level'] += i * 10
         rune1, rune2, heals = getBestRunes(params, progressbar, rounds, i)
         params['opponent_level'] -= i * 10
-        if do_add(set_of_names, (rune1.__repr__(), rune2.__repr__())):
+        if do_add(set_of_names, (rune1.__str__(), rune2.__str__())):
             do_add(set_of_runes, (rune1, rune2))
     return set_of_runes

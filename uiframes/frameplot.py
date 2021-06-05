@@ -44,7 +44,7 @@ class FramePlot:
         for r in set_of_runes:
             rune = r[0] + r[1]
             heals_list = []
-            label = r[0].__repr__() + " + " + r[1].__repr__()
+            label = r[0].__str__() + " + " + r[1].__str__()
             if capped:
                 for i in levels_list:
                     h = calculateHeals(params['pet1'], params['pet2'], params['bonus'], rune, i)

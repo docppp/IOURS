@@ -8,21 +8,29 @@ class Singleton(type):
         return cls._instances[cls]
 
 
+_global_base = None
+
+
 class LoaderBase(metaclass=Singleton):
-    def __init__(self, file="iou.txt"):
-        self.file_path = file
+
+    def __new__(cls, *args, **kwargs):
+        global _global_base
+        if _global_base is None:
+            _global_base = super(LoaderBase, cls).__new__(cls, *args, **kwargs)
+        return _global_base
+
+    def __init__(self):
+        self.file_path = None
         self.file_content = None
         self.getters = []
         self._raw_lines = {}
-        print("Base created", id(self))
 
-    def loadFile(self):
-        print("I am base", id(self), "loading")
+    def loadFile(self, file="iou.txt"):
+        self.file_path = file
         with open(self.file_path) as file:
             self.file_content = file.readlines()
 
     def reload(self):
-        print("I am base", id(self), "called reload")
         self.loadFile()
         for call in self.getters:
             getattr(self, call)()

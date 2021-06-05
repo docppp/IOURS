@@ -6,8 +6,8 @@ from rns.runes import Runes
 
 class LoaderPets(LoaderBase, metaclass=Singleton):
 
-    def __init__(self, file="iou.txt"):
-        super().__init__(file)
+    def __init__(self):
+        super().__init__()
         self.bonus = None
         self.runes = None
         self.pets = None
@@ -24,7 +24,6 @@ class LoaderPets(LoaderBase, metaclass=Singleton):
             'raw_rune_regen': 16,
             'raw_converge': 17,
         }
-        print("Pets created", id(self), id(super()))
 
     def getBonus(self):
         raw_armor, text = self._getRawLine('raw_armor')
