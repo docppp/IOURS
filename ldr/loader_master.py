@@ -5,7 +5,7 @@ from .loader_spinbox import LoaderSpinbox
 
 class LoaderMaster(metaclass=Singleton):
 
-    def __init__(self,):
+    def __init__(self):
         self.pets = LoaderPets()
         self.spinbox = LoaderSpinbox()
 

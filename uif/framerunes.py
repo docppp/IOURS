@@ -5,7 +5,6 @@ class FrameRunes:
     def __init__(self, master):
         self.Framerunes = ttk.Labelframe(master)
         self.Framerunes.configure(height='200', text='Runes Data Input', width='210')
-        self.Framerunes.grid(column='1', row='2', sticky='sw')
         self.Framerunes.rowconfigure('1', minsize='0', weight='1')
         self.Framerunes.columnconfigure('1', minsize='100', pad='0', weight='1')
 

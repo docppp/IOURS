@@ -3,12 +3,11 @@ from tkinter import IntVar
 
 
 class FrameOpponent:
-    def __init__(self, master, buttoncallback):
+    def __init__(self, master):
         self.var_radio = IntVar()
         self.var_check = IntVar()
         self.Frameopponent = ttk.Labelframe(master)
         self.Frameopponent.configure(height='200', text='Opponent Data Input', width='100')
-        self.Frameopponent.grid(column='1', row='3', sticky='sw')
         self.Frameopponent.rowconfigure('2', weight='1')
         self.Frameopponent.columnconfigure('1', minsize='100', pad='0', weight='1')
 
@@ -28,7 +27,6 @@ class FrameOpponent:
         self.spinbox_limit.columnconfigure('1', pad='20')
         self.spinbox_limit.insert('0', '30')
 
-
         # Radiobutton - One level or Continuous
         self.radiobutton1 = ttk.Radiobutton(self.Frameopponent, variable=self.var_radio, value=0)
         self.radiobutton1.configure(text='One level')
@@ -36,11 +34,6 @@ class FrameOpponent:
         self.radiobutton2 = ttk.Radiobutton(self.Frameopponent, variable=self.var_radio, value=1)
         self.radiobutton2.configure(state='normal', text='Continuous')
         self.radiobutton2.grid(column='1', row='2', sticky='w', pady='5')
-
-        # Button Calculate
-        self.button = ttk.Button(self.Frameopponent, command=buttoncallback)
-        self.button.configure(text='Calculate')
-        self.button.grid(column='0', columnspan='2', padx='5', pady='5', row='3')
 
         # Labels
         self.label = ttk.Label(self.Frameopponent)

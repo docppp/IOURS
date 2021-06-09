@@ -1,17 +1,11 @@
 import tkinter.ttk as ttk
 import tkinter.messagebox
-import time
-
-from uiframes.framepet import FramePet
-from uiframes.framerunes import FrameRunes
-from uiframes.frameopponent import FrameOpponent
-from uiframes.framehowto import FrameHowTo
-from uiframes.frameplot import FramePlot
-
-
-from rns.ioumath import getBestRunes
-from utils import saveFromTextBoxToFile
 from ldr.loader_master import LoaderMaster
+from rns.ioumath import getBestRunes
+from uif.calculate import CalculateCallback
+from uif.solver_runes_input import SolverRunesInput
+from uif.solver_runes_output import SolverRunesOutput
+from utils import saveFromTextBoxToFile
 
 
 class IoursUi:
@@ -21,32 +15,61 @@ class IoursUi:
         self.root.configure(height='200', width='200')
         self.root.pack(expand='true', ipadx='0', ipady='0', padx='10', pady='10', side='top')
 
-        self.Inputframe = ttk.Frame(self.root)
-        self.Inputframe.configure(height='200', width='200')
-        self.Inputframe.grid(column='0', row='0')
+        self.tab_control = ttk.Notebook(self.root)
+        self.tab_control.grid(column='0', row='0')
 
-        self.Petframe = FramePet(self.Inputframe)
-        self.Runesframe = FrameRunes(self.Inputframe)
-        self.OpponentFrame = FrameOpponent(self.Inputframe, self.buttonCallback)
-        self.HowToFrame = FrameHowTo(self.Inputframe)
-        self.label = ttk.Label(self.Inputframe)
-        self.label.configure(text='IOURS\nIdle Online Universe\nRunes Solver', justify='center',
-                             font=('Arial', 12, 'bold'))
-        self.label.grid(column='1', pady='5', row='1')
+        self.RunesInputFrame = SolverRunesInput(self.tab_control)
+        self.ShipInputFrame = ttk.Frame(self.tab_control)
 
-        self.Outputframe = ttk.Frame(self.root)
-        self.Outputframe.configure(height='200', width='200')
-        self.Outputframe.grid(column='1', row='0')
-        self.PlotFrame = FramePlot(self.Outputframe)
+        self.tab_control.add(self.RunesInputFrame.root, text='Runes Solver')
+        self.tab_control.add(self.ShipInputFrame, text='Ship Solver Soon')
 
+        self.OutputFrame = SolverRunesOutput(self.root)
+        self.OutputFrame.root.grid(column='1', row='0')
+
+        # Button Calculate
+        self.button = ttk.Button(self.root, command=self.chooseCallback)
+        self.button.configure(text='Calculate', )
+        self.button.grid(column='0', columnspan='2', padx='5', pady='5', row='1')
+        # Progress bar
         self.progress = ttk.Progressbar(self.root, mode='determinate', length=1200, maximum=110)
-        self.progress.grid(column='0', row='1', columnspan='2')
-
-        # Main widget
-        self.mainwindow = self.root
+        self.progress.grid(column='0', row='2', columnspan='2')
 
     def run(self):
-        self.mainwindow.mainloop()
+        self.root.mainloop()
+
+    def chooseCallback(self):
+        # Save must be done here
+        LoaderMaster().re()
+
+        if self.tab_control.index("current") == 0:
+            self.chooseCallbackPets()
+        if self.tab_control.index("current") == 1:
+            self.chooseCallbackShip()
+
+    def chooseCallbackPets(self):
+        params = {
+            'pets': LoaderMaster().pets.pets,
+            'bonus': LoaderMaster().pets.bonus,
+            'runes': LoaderMaster().pets.runes,
+            'rune1_rarity': int(self.RunesInputFrame.RunesFrame.spinbox_r1r.get()),
+            'rune1_level': int(self.RunesInputFrame.RunesFrame.spinbox_r1l.get()),
+            'rune2_rarity': int(self.RunesInputFrame.RunesFrame.spinbox_r2r.get()),
+            'rune2_level': int(self.RunesInputFrame.RunesFrame.spinbox_r2l.get()),
+            'opponent_level': int(self.RunesInputFrame.OpponentFrame.spinbox_op.get()),
+            'arena': LoaderMaster().pets.runes.arena,
+            'capped': self.RunesInputFrame.OpponentFrame.var_check.get(),
+            'progress': self.progress,
+        }
+        if self.RunesInputFrame.OpponentFrame.var_radio.get() == 0:
+            call = CalculateCallback("PetsOneLevel")
+        else:
+            call = CalculateCallback("PetsContinuous")
+        call.do(params)
+
+    def chooseCallbackShip(self):
+        print(self.RunesInputFrame.OpponentFrame.var_radio.get())
+        print("Coming soon")
 
     # TODO
     # Better error handling
@@ -55,30 +78,6 @@ class IoursUi:
                                      self.Runesframe, self.OpponentFrame):
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
             return False
-
-        # try:
-        loader = LoaderMaster()
-        loader.re()
-        pet1, pet2 = loader.pets.pets
-        bonus = loader.pets.bonus
-        runes = loader.pets.runes
-        # except Exception:
-        #     tkinter.messagebox.showinfo("Error", "There were some error during data parsing")
-        #     return False
-
-        params = {
-            'pet1': pet1,
-            'pet2': pet2,
-            'bonus': bonus,
-            'runes': runes,
-            'rune1_rarity': int(self.Runesframe.spinbox_r1r.get()),
-            'rune1_level': int(self.Runesframe.spinbox_r1l.get()),
-            'rune2_rarity': int(self.Runesframe.spinbox_r2r.get()),
-            'rune2_level': int(self.Runesframe.spinbox_r2l.get()),
-            'opponent_level': int(self.OpponentFrame.spinbox_op.get()),
-            'arena': runes.arena
-        }
-        capped = self.OpponentFrame.var_check.get()
 
         start = time.time()
         if self.OpponentFrame.var_radio.get() == 0:

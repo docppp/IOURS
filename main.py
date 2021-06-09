@@ -16,18 +16,17 @@ if __name__ == '__main__':
     root = tk.Tk()
     root.title('IOUR Solvers')
     app = IoursUi(root)
-    loader = LoaderMaster()
-    loader.loadFile()
-    if not fillTextBoxAtStartup(app.Petframe.text1, app.Petframe.text2, app.Petframe.entry1,
-                                app.Runesframe, app.OpponentFrame):
-        app.Petframe.text1.delete('0.0', 'end')
-        app.Petframe.text2.delete('0.0', 'end')
-        app.Petframe.entry1.delete('0', 'end')
-        app.Petframe.text1.insert('0.0', 'Wrong or no data\nfound in iou.txt\n'
+    LoaderMaster().loadFile()
+    if not fillTextBoxAtStartup(app.RunesInputFrame.PetFrame.text1, app.RunesInputFrame.PetFrame.text2, app.RunesInputFrame.PetFrame.entry1,
+                                app.RunesInputFrame.RunesFrame, app.RunesInputFrame.OpponentFrame):
+        app.RunesInputFrame.PetFrame.text1.delete('0.0', 'end')
+        app.RunesInputFrame.PetFrame.text2.delete('0.0', 'end')
+        app.RunesInputFrame.PetFrame.entry1.delete('0', 'end')
+        app.RunesInputFrame.PetFrame.text1.insert('0.0', 'Wrong or no data\nfound in iou.txt\n'
                                          'Its ok if you run\nthis app for the first time.')
     if not dll_found:
-        app.Petframe.text2.delete('0.0', 'end')
-        app.Petframe.text2.insert('0.0', 'Cannot find fight.dll\nProgram will not work.')
-        app.OpponentFrame.button.configure(state='disabled')
+        app.RunesInputFrame.PetFrame.text2.delete('0.0', 'end')
+        app.RunesInputFrame.Petframe.text2.insert('0.0', 'Cannot find fight.dll\nProgram will not work.')
+        app.button.configure(state='disabled')
 
     app.run()
