@@ -1,7 +1,6 @@
 import tkinter.ttk as ttk
 import tkinter.messagebox
 from ldr.loader_master import LoaderMaster
-from rns.ioumath import getBestRunes
 from uif.calculate import CalculateCallback
 from uif.solver_runes_input import SolverRunesInput
 from uif.solver_runes_output import SolverRunesOutput
@@ -22,7 +21,7 @@ class IoursUi:
         self.ShipInputFrame = ttk.Frame(self.tab_control)
 
         self.tab_control.add(self.RunesInputFrame.root, text='Runes Solver')
-        self.tab_control.add(self.ShipInputFrame, text='Ship Solver Soon')
+        self.tab_control.add(self.ShipInputFrame, text='Ship Arena Solver')
 
         self.OutputFrame = SolverRunesOutput(self.root)
         self.OutputFrame.root.grid(column='1', row='0')
@@ -34,6 +33,11 @@ class IoursUi:
         # Progress bar
         self.progress = ttk.Progressbar(self.root, mode='determinate', length=1200, maximum=110)
         self.progress.grid(column='0', row='2', columnspan='2')
+
+        self.params_tk = {
+            'progress': self.progress,
+            'plot_frame': self.OutputFrame.PlotFrame,
+        }
 
     def run(self):
         self.root.mainloop()
@@ -61,25 +65,13 @@ class IoursUi:
             'limit': int(self.RunesInputFrame.OpponentFrame.spinbox_limit.get())+1,
             'capped': self.RunesInputFrame.OpponentFrame.var_check.get(),
         }
-        params_tk = {
-            'progress': self.progress,
-            'plot_frame': self.OutputFrame.PlotFrame,
-        }
         if self.RunesInputFrame.OpponentFrame.var_radio.get() == 0:
             call = CalculateCallback("PetsOneLevel")
         else:
             call = CalculateCallback("PetsContinuous")
-        call.do(params, params_tk)
+        call.do(params, self.params_tk)
 
     def chooseCallbackShip(self):
         print(self.RunesInputFrame.OpponentFrame.var_radio.get())
-        print("Coming soon")
+        tkinter.messagebox.showinfo("", "Coming soon")
 
-    # TODO
-    # Better error handling
-    def buttonCallback(self):
-        if not saveFromTextBoxToFile(self.Petframe.text1, self.Petframe.text2, self.Petframe.entry1,
-                                     self.Runesframe, self.OpponentFrame):
-            tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
-            return False
-        return

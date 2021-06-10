@@ -20,7 +20,7 @@ class CalculateCallback:
         progressbar.master.update_idletasks()
         # try:
         rune1, rune2, heals = getBestRunes(params, params_tk)
-        progressbar['value'] += 10
+        progressbar['value'] = 110
         sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
         tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
                                     f"First Rune:\t{rune1.__str__()}\n"
