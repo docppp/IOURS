@@ -8,16 +8,7 @@ class Singleton(type):
         return cls._instances[cls]
 
 
-_global_base = None
-
-
 class LoaderBase(metaclass=Singleton):
-
-    def __new__(cls, *args, **kwargs):
-        global _global_base
-        if _global_base is None:
-            _global_base = super(LoaderBase, cls).__new__(cls, *args, **kwargs)
-        return _global_base
 
     def __init__(self):
         self.file_path = None

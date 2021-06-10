@@ -19,12 +19,10 @@ class TestPet(unittest.TestCase, TestCoverage):
 
     def test_prepareForFight(self):
         pet1, pet2 = self.loader.getPets()
-        print(pet1.regen)
         bonus = self.loader.getBonus()
         runes = self.loader.getRunes()
         op = Opponent.generateOpponent(600, bonus.armor, runes.frenzy)
         pet = pet1.prepareForFight(op, bonus, runes)
-        print(pet.regen)
         self.assertEqual(pet.dmg, 46368113205)
         self.assertEqual(pet.hp, 612245)
         self.assertEqual(pet.regen, 122448)

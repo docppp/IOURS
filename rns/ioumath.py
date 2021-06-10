@@ -46,7 +46,7 @@ def calculateHeals(pet1, pet2, bonus, runes, level):
     return ret
 
 
-def getBestRunes(params, rounds=1, iters=0):
+def getBestRunes(params, params_tk, rounds=1, iters=0):
     global min_heals
     global rcopy1
     global rcopy2
@@ -57,8 +57,7 @@ def getBestRunes(params, rounds=1, iters=0):
                                                  params['rune2_rarity'], params['rune2_level'], params['arena'])
     part_done = 100 / rounds
     q = []
-    progressbar = params['progress']
-    del params['progress']
+    progressbar = params_tk['progress']
     with Pool(processes=cpu_count()) as pool:
         r = pool.map_async(getBestRunesHelper, [(x, y, params) for x in list_rune1 for y in list_rune2])
         while True:

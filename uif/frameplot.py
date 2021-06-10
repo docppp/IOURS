@@ -58,3 +58,13 @@ class FramePlot:
         plt.legend(loc='best')
         plt.tight_layout()
         self.makePlot(f)
+
+    def plot(self, x_values, y_values, labels):
+        f = plt.figure()
+        for i, y in enumerate(y_values):
+            plt.plot(x_values, y, label=labels[i])
+        plt.grid(True)
+        plt.legend(loc='best')
+        plt.tight_layout()
+        self.makePlot(f)
+

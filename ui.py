@@ -58,14 +58,18 @@ class IoursUi:
             'rune2_level': int(self.RunesInputFrame.RunesFrame.spinbox_r2l.get()),
             'opponent_level': int(self.RunesInputFrame.OpponentFrame.spinbox_op.get()),
             'arena': LoaderMaster().pets.runes.arena,
+            'limit': int(self.RunesInputFrame.OpponentFrame.spinbox_limit.get())+1,
             'capped': self.RunesInputFrame.OpponentFrame.var_check.get(),
+        }
+        params_tk = {
             'progress': self.progress,
+            'plot_frame': self.OutputFrame.PlotFrame,
         }
         if self.RunesInputFrame.OpponentFrame.var_radio.get() == 0:
             call = CalculateCallback("PetsOneLevel")
         else:
             call = CalculateCallback("PetsContinuous")
-        call.do(params)
+        call.do(params, params_tk)
 
     def chooseCallbackShip(self):
         print(self.RunesInputFrame.OpponentFrame.var_radio.get())
@@ -78,56 +82,4 @@ class IoursUi:
                                      self.Runesframe, self.OpponentFrame):
             tkinter.messagebox.showinfo("Error", "There were some error during saving data to iou.txt")
             return False
-
-        start = time.time()
-        if self.OpponentFrame.var_radio.get() == 0:
-            buttonOneLevelClicked(self.progress, params)
-        if self.OpponentFrame.var_radio.get() == 1:
-            buttonContinuousClicked(self.PlotFrame, self.progress, params, int(self.OpponentFrame.spinbox_limit.get())+1, capped)
-        stop = time.time()
-        # print("T: ", stop - start)
         return
-
-
-def buttonOneLevelClicked(progressbar, params):
-    progressbar['value'] = 0.0
-    progressbar.master.update_idletasks()
-    try:
-        rune1, rune2, heals = getBestRunes(params, progressbar)
-        progressbar['value'] += 10
-        sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
-        tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
-                                    f"First Rune:\t{rune1.__str__()}\n"
-                                    f"Second Rune:\t{rune2.__str__()}\n"
-                                    f"Used heals:\t{heals}"
-                                    f"{sidenote}")
-    except Exception:
-        tkinter.messagebox.showinfo("Error", "There were some error during calculations")
-        return False
-
-    return True
-
-
-def buttonContinuousClicked(frame, progressbar, params, limit=30, capped=False):
-    progressbar['value'] = 0.0
-    progressbar.master.update_idletasks()
-    set_of_runes = _getRunesSet(progressbar, params, int(limit/10))
-    frame.plotHeals(params, set_of_runes, limit, capped)
-    progressbar['value'] += 10
-    progressbar.master.update_idletasks()
-
-
-def _getRunesSet(progressbar, params, rounds):
-    set_of_runes = set()
-    set_of_names = set()
-
-    def do_add(s, x):
-        return len(s) != (s.add(x) or len(s))
-
-    for i in range(rounds):
-        params['opponent_level'] += i * 10
-        rune1, rune2, heals = getBestRunes(params, progressbar, rounds, i)
-        params['opponent_level'] -= i * 10
-        if do_add(set_of_names, (rune1.__str__(), rune2.__str__())):
-            do_add(set_of_runes, (rune1, rune2))
-    return set_of_runes

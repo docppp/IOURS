@@ -1,10 +1,10 @@
 import unittest
-from .test_loader_base import TestLoaderBase
-from .test_loader_pets import TestLoaderPets
-from .test_loader_spinbox import TestLoaderSpinbox
-from .test_opponent import TestOpponent
-from .test_pet import TestPet
-from .test_runes import TestRunes
+from tst.test_loader_base import TestLoaderBase
+from tst.test_loader_pets import TestLoaderPets
+from tst.test_loader_spinbox import TestLoaderSpinbox
+from tst.test_opponent import TestOpponent
+from tst.test_pet import TestPet
+from tst.test_runes import TestRunes
 
 if __name__ == '__main__':
     # Create tests class, so imports are not unused.
