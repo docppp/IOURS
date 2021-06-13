@@ -1,5 +1,4 @@
 import tkinter
-
 from ldr.loader_base import LoaderBase
 
 
