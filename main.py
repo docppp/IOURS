@@ -14,12 +14,14 @@ if __name__ == '__main__':
     except FileNotFoundError:
         dll_found = False
     root = tk.Tk()
-    root.title('IOUR Solvers')
+    root.title('IOUR Solvers v.1.2a')
     app = IoursUi(root)
     LoaderMaster().loadFile()
-    if not fillTextBoxAtStartup(app.RunesInputFrame.PetFrame.text1, app.RunesInputFrame.PetFrame.text2,
-                                app.RunesInputFrame.PetFrame.entry1,
-                                app.RunesInputFrame.RunesFrame, app.RunesInputFrame.OpponentFrame):
+    if not fillTextBoxAtStartup(app.RunesInputFrame.PetFrame.combat_box,
+                                app.RunesInputFrame.PetFrame.runes_box,
+                                app.RunesInputFrame.PetFrame.converge_box,
+                                app.RunesInputFrame.RunesFrame,
+                                app.RunesInputFrame.OpponentFrame):
         app.RunesInputFrame.PetFrame.text1.delete('0.0', 'end')
         app.RunesInputFrame.PetFrame.text2.delete('0.0', 'end')
         app.RunesInputFrame.PetFrame.entry1.delete('0', 'end')

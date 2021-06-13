@@ -43,7 +43,11 @@ class IoursUi:
         self.root.mainloop()
 
     def chooseCallback(self):
-        # Save must be done here
+        saveFromTextBoxToFile(self.RunesInputFrame.PetFrame.combat_box,
+                              self.RunesInputFrame.PetFrame.runes_box,
+                              self.RunesInputFrame.PetFrame.converge_box,
+                              self.RunesInputFrame.RunesFrame,
+                              self.RunesInputFrame.OpponentFrame)
         LoaderMaster().re()
 
         if self.tab_control.index("current") == 0:
@@ -72,6 +76,5 @@ class IoursUi:
         call.do(params, self.params_tk)
 
     def chooseCallbackShip(self):
-        print(self.RunesInputFrame.OpponentFrame.var_radio.get())
         tkinter.messagebox.showinfo("", "Coming soon")
 

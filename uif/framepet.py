@@ -10,19 +10,19 @@ class FramePet:
         self.Framepet.columnconfigure('0', weight='1')
 
         # PetCombat Input
-        self.text1 = tk.Text(self.Framepet)
-        self.text1.configure(height='9', width='30')
-        self.text1.grid(column='1', padx='0', pady='0', row='0', rowspan='2', sticky='n')
+        self.combat_box = tk.Text(self.Framepet)
+        self.combat_box.configure(height='9', width='30')
+        self.combat_box.grid(column='1', padx='0', pady='0', row='0', rowspan='2', sticky='n')
 
         # Runes Input
-        self.text2 = tk.Text(self.Framepet)
-        self.text2.configure(height='8', setgrid='true', width='30')
-        self.text2.grid(column='1', padx='0', pady='0', row='2', rowspan='2', sticky='n')
+        self.runes_box = tk.Text(self.Framepet)
+        self.runes_box.configure(height='8', setgrid='true', width='30')
+        self.runes_box.grid(column='1', padx='0', pady='0', row='2', rowspan='2', sticky='n')
 
         # Converge Input
-        self.entry1 = ttk.Entry(self.Framepet)
-        self.entry1.configure(width='40')
-        self.entry1.grid(column='1', padx='0', pady='10', row='4', sticky='w')
+        self.converge_box = ttk.Entry(self.Framepet)
+        self.converge_box.configure(width='40')
+        self.converge_box.grid(column='1', padx='0', pady='10', row='4', sticky='w')
 
         # Labels
         self.label1 = ttk.Label(self.Framepet)

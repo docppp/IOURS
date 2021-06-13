@@ -7,7 +7,7 @@ class CalculateCallback:
     def __init__(self, callback_type):
         self.callback_type = callback_type
 
-    def do(self, params, params_tk=None):
+    def do(self, params, params_tk):
         if self.callback_type == "PetsOneLevel":
             self.doPetsOneLevel(params, params_tk)
         if self.callback_type == "PetsContinuous":
@@ -18,19 +18,19 @@ class CalculateCallback:
         progressbar = params_tk['progress']
         progressbar['value'] = 0.0
         progressbar.master.update_idletasks()
-        # try:
-        rune1, rune2, heals = getBestRunes(params, params_tk)
-        progressbar['value'] = 110
-        sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
-        tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
-                                    f"First Rune:\t{rune1.__str__()}\n"
-                                    f"Second Rune:\t{rune2.__str__()}\n"
-                                    f"Used heals:\t{heals}"
-                                    f"{sidenote}")
-        # except Exception:
-        #     tkinter.messagebox.showinfo("Error", "There were some error during calculations")
-        #     return False
-        # return True
+        try:
+            rune1, rune2, heals = getBestRunes(params, params_tk)
+            progressbar['value'] = 110
+            sidenote = "\n\nHeals above 250. You cannot win lol." if heals > 250 else ""
+            tkinter.messagebox.showinfo(f"Best Rune for level {params['opponent_level']}",
+                                        f"First Rune:\t{rune1.__str__()}\n"
+                                        f"Second Rune:\t{rune2.__str__()}\n"
+                                        f"Used heals:\t{heals}"
+                                        f"{sidenote}")
+        except Exception:
+            tkinter.messagebox.showinfo("Error", "There were some error during calculations")
+            return False
+        return True
 
     @staticmethod
     def doPetsContinuous(params, params_tk):
