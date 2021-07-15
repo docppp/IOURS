@@ -6,7 +6,7 @@ from ldr.loader_pets import LoaderPets
 from rns.opponent import Opponent
 
 
-class TestOpponent(unittest.TestCase, TestCoverage):
+class TestOpponentPet(unittest.TestCase, TestCoverage):
     test_class = Opponent
 
     @classmethod
