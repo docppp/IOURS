@@ -22,4 +22,14 @@ Converge 100%
 19
 1
 600
+Space Academy	679.85%
+AI Guild Passive	114.80%
+72
+7
+0
+50
+10
+10
+100
+100
 """
