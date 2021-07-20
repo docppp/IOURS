@@ -23,5 +23,13 @@ class TestLoaderSpinbox(unittest.TestCase, TestCoverage):
             'rune_2_rarity': '19',
             'rune_2_level': '1',
             'op_level': '600',
+            'virtue': '72',
+            'orb_star': '7',
+            'orb_level': '0',
+            'legendary': '50',
+            'asc_dmg': '10',
+            'asc_hp': '10',
+            'trophy_hp': '100',
+            'trophy_dmg': '100',
         }
         self.assertEqual(spinbox, checked)
