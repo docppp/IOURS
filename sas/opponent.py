@@ -23,3 +23,19 @@ class Opponent:
         op.dmg = (10+2.5*(lvl-1+max(0, lvl-500)))*(1+floor((lvl-1)/5)/20)
         op.speed = (10+0.8*(lvl-1+max(0, lvl-500)))*(1+floor((lvl-1)/5)/20)
         return op
+
+    def createShipDict(self):
+        ship_dict = {
+            'speed': self.speed,
+            'armor': self.shield,
+            'hp': self.health,
+            'dmg': self.dmg,
+            'armor_pen': 1,
+            'regen_hp': 0,
+            'leech': 0,
+            'absorb': (self.level-1)*0.02,
+            'reflection': 0,
+            'number': 4
+        }
+        return ship_dict
+
