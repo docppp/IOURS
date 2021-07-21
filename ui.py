@@ -67,7 +67,7 @@ class IoursUi:
             'rune2_level': int(self.RunesInputFrame.RunesFrame.spinbox_r2l.get()),
             'opponent_level': int(self.RunesInputFrame.OpponentFrame.spinbox_op.get()),
             'arena': LoaderMaster().pets.runes.arena,
-            'limit': int(self.RunesInputFrame.OpponentFrame.spinbox_limit.get())+1,
+            'limit': int(self.RunesInputFrame.OpponentFrame.spin_def_limit.get()) + 1,
             'capped': self.RunesInputFrame.OpponentFrame.var_check.get(),
         }
         if self.RunesInputFrame.OpponentFrame.var_radio.get() == 0:

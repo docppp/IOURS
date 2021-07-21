@@ -2,7 +2,7 @@ import tkinter
 from ldr.loader_base import LoaderBase
 
 
-def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spin):
+def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spin, ship_stat_spin):
     lcs = locals()
     boxes_to_fill = []
     spin_frames_to_fill = []
@@ -22,6 +22,14 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
         'spinbox_r2r': 20,
         'spinbox_r2l': 21,
         'spinbox_op': 22,
+        'spinbox_virt': 25,
+        'spinbox_orbs': 26,
+        'spinbox_orbl': 27,
+        'spinbox_lege': 28,
+        'spinbox_ascd': 29,
+        'spinbox_asch': 30,
+        'spinbox_trph': 31,
+        'spinbox_trpd': 32,
     }
 
     try:
@@ -32,11 +40,10 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
             start = '0.0' if type(locals()[box]) is tkinter.Text else '0'
             locals()[box].insert(start, tmp[:-1])
 
-        runes_spin.spinbox_r1r.insert('0', text[fill_ranges['spinbox_r1r']][:-1])
-        runes_spin.spinbox_r1l.insert('0', text[fill_ranges['spinbox_r1l']][:-1])
-        runes_spin.spinbox_r2r.insert('0', text[fill_ranges['spinbox_r2r']][:-1])
-        runes_spin.spinbox_r2l.insert('0', text[fill_ranges['spinbox_r2l']][:-1])
-        op_spin.spinbox_op.insert('0', text[fill_ranges['spinbox_op']][:-1])
+        for spin_frame in spin_frames_to_fill:
+            for key in [k for k in locals()[spin_frame].__dict__ if k.find('spinbox') != -1]:
+                locals()[spin_frame].__dict__[key].insert('0', text[fill_ranges[key]][:-1])
+
     except IndexError:
         return False
 

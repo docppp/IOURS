@@ -21,11 +21,11 @@ class FrameOpponent:
         self.checkbox_cap = ttk.Checkbutton(self.Frameopponent, variable=self.var_check)
         self.checkbox_cap.configure(text='Cap Heals')
         self.checkbox_cap.grid(column='0', row='1', pady='5')
-        self.spinbox_limit = ttk.Spinbox(self.Frameopponent, from_=10, to=300)
-        self.spinbox_limit.configure(increment='10', width='5')
-        self.spinbox_limit.grid(column='1', row='1', sticky='w', pady='10')
-        self.spinbox_limit.columnconfigure('1', pad='20')
-        self.spinbox_limit.insert('0', '30')
+        self.spin_def_limit = ttk.Spinbox(self.Frameopponent, from_=10, to=300)
+        self.spin_def_limit.configure(increment='10', width='5')
+        self.spin_def_limit.grid(column='1', row='1', sticky='w', pady='10')
+        self.spin_def_limit.columnconfigure('1', pad='20')
+        self.spin_def_limit.insert('0', '30')
 
         # Radiobutton - One level or Continuous
         self.radiobutton1 = ttk.Radiobutton(self.Frameopponent, variable=self.var_radio, value=0)
@@ -43,7 +43,7 @@ class FrameOpponent:
         self.label2 = ttk.Label(self.Frameopponent)
         self.label2.configure(text='           Limit')
         self.label2.grid(column='1', row='1', pady='5')
-        self.label2.lower(self.spinbox_limit)
+        self.label2.lower(self.spin_def_limit)
 
 
 

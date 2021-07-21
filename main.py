@@ -21,15 +21,16 @@ if __name__ == '__main__':
                                 app.RunesInputFrame.PetFrame.runes_box,
                                 app.RunesInputFrame.PetFrame.converge_box,
                                 app.RunesInputFrame.RunesFrame,
-                                app.RunesInputFrame.OpponentFrame):
-        app.RunesInputFrame.PetFrame.text1.delete('0.0', 'end')
-        app.RunesInputFrame.PetFrame.text2.delete('0.0', 'end')
-        app.RunesInputFrame.PetFrame.entry1.delete('0', 'end')
+                                app.RunesInputFrame.OpponentFrame,
+                                app.ShipInputFrame.FrameShipStats):
+        app.RunesInputFrame.PetFrame.combat_box.delete('0.0', 'end')
+        app.RunesInputFrame.PetFrame.runes_box.delete('0.0', 'end')
+        app.RunesInputFrame.PetFrame.converge_box.delete('0', 'end')
         app.RunesInputFrame.PetFrame.text1.insert('0.0', 'Wrong or no data\nfound in iou.txt\n'
                                                          'Its ok if you run\nthis app for the first time.')
     if not dll_found:
-        app.RunesInputFrame.PetFrame.text2.delete('0.0', 'end')
-        app.RunesInputFrame.Petframe.text2.insert('0.0', 'Cannot find fight.dll\nProgram will not work.')
+        app.RunesInputFrame.PetFrame.runes_box.delete('0.0', 'end')
+        app.RunesInputFrame.Petframe.runes_box.insert('0.0', 'Cannot find fight.dll\nProgram will not work.')
         app.button.configure(state='disabled')
 
     app.run()
