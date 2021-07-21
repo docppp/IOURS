@@ -62,6 +62,17 @@ def saveFromTextBoxToFile(combat_box, runes_box, converge_box, runes_spin, op_sp
             tmp += runes_spin.spinbox_r2r.get() + "\n"
             tmp += runes_spin.spinbox_r2l.get() + "\n"
             tmp += op_spin.spinbox_op.get() + "\n"
+            tmp += """Space Academy	679.85%
+AI Guild Passive	114.80%
+72
+7
+0
+50
+10
+10
+100
+100
+"""
             file.write(tmp)
         return True
     except IndexError:
