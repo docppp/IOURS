@@ -6,8 +6,6 @@ class FramePet:
     def __init__(self, master):
         self.Framepet = ttk.Labelframe(master)
         self.Framepet.configure(height='200', text='Pet Data Input', width='100')
-        self.Framepet.rowconfigure('0', weight='1')
-        self.Framepet.columnconfigure('0', weight='1')
 
         # PetCombat Input
         self.combat_box = tk.Text(self.Framepet)

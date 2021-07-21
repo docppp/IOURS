@@ -4,6 +4,7 @@ from ldr.loader_master import LoaderMaster
 from uif.calculate import CalculateCallback
 from uif.solver_runes_input import SolverRunesInput
 from uif.solver_runes_output import SolverRunesOutput
+from uif.solver_ship_input import SolverShipInput
 from utils import saveFromTextBoxToFile
 
 
@@ -18,10 +19,10 @@ class IoursUi:
         self.tab_control.grid(column='0', row='0')
 
         self.RunesInputFrame = SolverRunesInput(self.tab_control)
-        self.ShipInputFrame = ttk.Frame(self.tab_control)
+        self.ShipInputFrame = SolverShipInput(self.tab_control)
 
         self.tab_control.add(self.RunesInputFrame.root, text='Runes Solver')
-        self.tab_control.add(self.ShipInputFrame, text='Ship Arena Solver')
+        self.tab_control.add(self.ShipInputFrame.root, text='Ship Arena Solver')
 
         self.OutputFrame = SolverRunesOutput(self.root)
         self.OutputFrame.root.grid(column='1', row='0')
