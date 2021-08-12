@@ -37,6 +37,7 @@ class LoaderPets(LoaderBase, metaclass=Singleton):
         self.bonus.heals = float(raw_heals[:-2]) / 100
         self.bonus.regen = (float(raw_regen[:-1]) / 100) - (float(raw_rune_regen[:-2]) / 100)
         self.bonus.converge = float(raw_converge[:-2]) / 100
+        self.bonus.converge = 1 if self.bonus.converge > 1 else self.bonus.converge
         return self.bonus
 
     def getRunes(self):
