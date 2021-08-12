@@ -2,7 +2,7 @@ import tkinter
 from ldr.loader_base import LoaderBase
 
 
-def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spin, ship_stat_spin):
+def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spin, ship_stat_spin, guild_box):
     lcs = locals()
     boxes_to_fill = []
     spin_frames_to_fill = []
@@ -22,6 +22,7 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
         'spinbox_r2r': 20,
         'spinbox_r2l': 21,
         'spinbox_op': 22,
+        'guild_box': (23, 25),
         'spinbox_virt': 25,
         'spinbox_orbs': 26,
         'spinbox_orbl': 27,
@@ -50,7 +51,7 @@ def fillTextBoxAtStartup(combat_box, runes_box, converge_box, runes_spin, op_spi
     return True
 
 
-def saveFromTextBoxToFile(combat_box, runes_box, converge_box, runes_spin, op_spin):
+def saveFromTextBoxToFile(combat_box, runes_box, converge_box, runes_spin, op_spin, guild_box, ship_stat_spin):
     try:
         with open("iou.txt", 'w') as file:
             tmp = ''
@@ -62,17 +63,15 @@ def saveFromTextBoxToFile(combat_box, runes_box, converge_box, runes_spin, op_sp
             tmp += runes_spin.spinbox_r2r.get() + "\n"
             tmp += runes_spin.spinbox_r2l.get() + "\n"
             tmp += op_spin.spinbox_op.get() + "\n"
-            tmp += """Space Academy	679.85%
-AI Guild Passive	114.80%
-72
-7
-0
-50
-10
-10
-100
-100
-"""
+            tmp += guild_box.get('0.0', 'end')
+            tmp += ship_stat_spin.spinbox_virt.get() + "\n"
+            tmp += ship_stat_spin.spinbox_orbs.get() + "\n"
+            tmp += ship_stat_spin.spinbox_orbl.get() + "\n"
+            tmp += ship_stat_spin.spinbox_lege.get() + "\n"
+            tmp += ship_stat_spin.spinbox_ascd.get() + "\n"
+            tmp += ship_stat_spin.spinbox_asch.get() + "\n"
+            tmp += ship_stat_spin.spinbox_trph.get() + "\n"
+            tmp += ship_stat_spin.spinbox_trpd.get() + "\n"
             file.write(tmp)
         return True
     except IndexError:

@@ -5,7 +5,6 @@ class FrameShipStats:
     def __init__(self, master):
         self.root = ttk.Labelframe(master)
         self.root.configure(height='200', text='Ship Data Input', width='100')
-        self.root.grid(column='0', ipadx='5', ipady='5', row='1')
 
         self.spinbox_virt = ttk.Spinbox(self.root)
         self.spinbox_virt.configure(from_='0', to='999', width='4')

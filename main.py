@@ -22,7 +22,8 @@ if __name__ == '__main__':
                                 app.RunesInputFrame.PetFrame.converge_box,
                                 app.RunesInputFrame.RunesFrame,
                                 app.RunesInputFrame.OpponentFrame,
-                                app.ShipInputFrame.FrameShipStats):
+                                app.ShipInputFrame.FrameShipStats,
+                                app.ShipInputFrame.FrameShipGuild.guild_box):
         app.RunesInputFrame.PetFrame.combat_box.delete('0.0', 'end')
         app.RunesInputFrame.PetFrame.runes_box.delete('0.0', 'end')
         app.RunesInputFrame.PetFrame.converge_box.delete('0', 'end')

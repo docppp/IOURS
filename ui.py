@@ -48,7 +48,9 @@ class IoursUi:
                               self.RunesInputFrame.PetFrame.runes_box,
                               self.RunesInputFrame.PetFrame.converge_box,
                               self.RunesInputFrame.RunesFrame,
-                              self.RunesInputFrame.OpponentFrame)
+                              self.RunesInputFrame.OpponentFrame,
+                              self.ShipInputFrame.FrameShipGuild.guild_box,
+                              self.ShipInputFrame.FrameShipStats)
         LoaderMaster().re()
 
         if self.tab_control.index("current") == 0:
