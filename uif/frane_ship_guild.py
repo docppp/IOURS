@@ -14,5 +14,5 @@ AI Guild Passive    114.80 %""")
         self.label.pack(side='left')
 
         self.guild_box = tk.Text(self.root)
-        self.guild_box.configure(height='2', width='29')
+        self.guild_box.configure(height='2', width='25')
         self.guild_box.pack(side='right')
