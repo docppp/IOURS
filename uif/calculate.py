@@ -1,5 +1,6 @@
 import tkinter.messagebox
 from rns.ioumath import getBestRunes, calculateHeals
+from sas.ioumath import getCheapestBuild
 
 
 class CalculateCallback:
@@ -12,6 +13,8 @@ class CalculateCallback:
             self.doPetsOneLevel(params, params_tk)
         if self.callback_type == "PetsContinuous":
             self.doPetsContinuous(params, params_tk)
+        if self.callback_type == "ShipArena":
+            self.doShipArena(params, params_tk)
 
     @staticmethod
     def doPetsOneLevel(params, params_tk):
@@ -72,3 +75,9 @@ class CalculateCallback:
             if do_add(set_of_names, (rune1.__str__(), rune2.__str__())):
                 do_add(set_of_runes, (rune1, rune2))
         return set_of_runes
+
+    @staticmethod
+    def doShipArena(params, params_tk):
+        print(params)
+        print(params_tk)
+        getCheapestBuild(params, params_tk)

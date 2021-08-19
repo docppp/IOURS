@@ -35,10 +35,7 @@ class IoursUi:
         self.progress = ttk.Progressbar(self.root, mode='determinate', length=1200, maximum=110)
         self.progress.grid(column='0', row='2', columnspan='2')
 
-        self.params_tk = {
-            'progress': self.progress,
-            'plot_frame': self.OutputFrame.PlotFrame,
-        }
+        self.params_tk = {}
 
     def run(self):
         self.root.mainloop()
@@ -52,6 +49,12 @@ class IoursUi:
                               self.ShipInputFrame.FrameShipGuild.guild_box,
                               self.ShipInputFrame.FrameShipStats)
         LoaderMaster().re()
+
+        self.params_tk = {
+            'progress': self.progress,
+            'plot_frame': self.OutputFrame.PlotFrame,
+            'spinbox': LoaderMaster().spinbox.getSpinbox(),
+        }
 
         if self.tab_control.index("current") == 0:
             self.chooseCallbackPets()
@@ -79,5 +82,9 @@ class IoursUi:
         call.do(params, self.params_tk)
 
     def chooseCallbackShip(self):
-        tkinter.messagebox.showinfo("", "Coming soon")
+        params = {
+            'ship_stats': LoaderMaster().ship.bonus_guild,
+        }
+        call = CalculateCallback("ShipArena")
+        call.do(params, self.params_tk)
 
