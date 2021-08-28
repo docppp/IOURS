@@ -1,4 +1,5 @@
 import unittest
+from tst.test_fight_ship import TestFightShip
 from tst.test_loader_base import TestLoaderBase
 from tst.test_loader_pets import TestLoaderPets
 from tst.test_loader_ship import TestLoaderShip
@@ -11,6 +12,7 @@ from tst.test_ship import TestShip
 
 if __name__ == '__main__':
     # Create tests class, so imports are not unused.
+    TestFightShip()
     TestLoaderBase()
     TestLoaderPets()
     TestLoaderShip()

@@ -318,15 +318,25 @@ def fight(left_ship_stats, middle_ship_stats, right_ship_stats, ai_ship_stats):
         right_ship['hp_after'].append(min(right_ship['hp'][-1]-right_ship['dmg_hp'][-1]-right_ship['reflect_hp'][-1]+right_ship['hp_gain'][-1], right_ship_stats['hp']))
 
         ai_ship['armor_after'].append(max(ai_ship['armor'][-1]-ai_ship['dmg_armor'][-1]-ai_ship['reflect_armor'][-1], 0))
-        ai_ship['hp_after'].append(min(ai_ship['hp'][-1]-ai_ship['dmg_hp'][-1]-ai_ship['reflect_hp'][-1]+ai_ship['hp_gain'][-1], ai_ship_stats['hp']))
+        ai_ship['hp_after'].append(max(min(ai_ship['hp'][-1]-ai_ship['dmg_hp'][-1]-ai_ship['reflect_hp'][-1]+ai_ship['hp_gain'][-1], ai_ship_stats['hp']), 0))
 
         #  Winner
         winner.append((("Ai" if attacking_ship[-1] == 4 else "Player") if next_ship4[-1] == 999 else "Ai") if next_ship1[-1]+next_ship2[-1]+next_ship3[-1] == 2997 else ("Player" if next_ship4[-1] == 999 else None))
 
         if winner[-1] == "Player":
-            return "Player", 0
+            # print("Player")
+            return -1
         if winner[-1] == "Ai":
-            return "Ai", ai_ship['hp_after'][-1] + ai_ship['hp_after'][-1]
+            # -2 due to the fact that we are one turn ahead
+            # MC treats first row as a first run of battle,
+            # not the starting value, so this is kinda TODO.
+            # additional -1 (so -3) due to MC bug?
+            try:
+                # print(ai_ship['hp_after'][-3] + ai_ship['armor_after'][-3])
+                return ai_ship['hp_after'][-3] + ai_ship['armor_after'][-3]
+            except IndexError:
+                # for safety (-2 is always correct as round 0 appends to existing list)
+                return ai_ship['hp_after'][-2] + ai_ship['armor_after'][-2]
 
     return "Nobody"
 
