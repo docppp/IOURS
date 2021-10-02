@@ -1,6 +1,6 @@
 import tkinter.ttk as ttk
 from uif.frame_ship_stats import FrameShipStats
-from uif.frane_ship_guild import FrameShipGuild
+from uif.frame_ship_guild import FrameShipGuild
 
 
 class SolverShipInput:

@@ -1,8 +1,8 @@
 import tkinter.ttk as ttk
-from uif.framepet import FramePet
-from uif.framerunes import FrameRunes
-from uif.frameopponent import FrameOpponent
-from uif.framehowto import FrameHowTo
+from uif.frame_runes_pet import FramePet
+from uif.frame_runes_runes import FrameRunes
+from uif.frame_runes_opponent import FrameOpponent
+from uif.frame_runes_howto import FrameHowTo
 
 
 class SolverRunesInput:

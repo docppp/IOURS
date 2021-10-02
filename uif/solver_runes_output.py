@@ -1,5 +1,5 @@
 import tkinter.ttk as ttk
-from uif.frameplot import FramePlot
+from uif.frame_runes_plot import FramePlot
 
 
 class SolverRunesOutput:
